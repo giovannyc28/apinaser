@@ -3,9 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
-.env
 .env.backup
-.env_produccion
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
