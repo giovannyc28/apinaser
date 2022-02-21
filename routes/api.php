@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CEOController;
 use App\Http\Controllers\API\TarifasController;
 use App\Http\Controllers\API\IdiomasController;
+use App\Http\Controllers\API\WSDynController;
 use App\Models\User;
 use App\Models\CEO;
 use Illuminate\Database\Eloquent\ModelNotFoundException;  
@@ -138,14 +139,25 @@ Route::middleware(['auth:api', 'role'])->group(function() {
     //Guardar
     Route::middleware(['scope:admin'])->post('/idioma', [IdiomasController::class, 'store']);
     //ver Detalle
-    Route::middleware(['scope:admin'])->post('/idioma/{idiomaId}', [IdiomasController::class, 'show']);
+    Route::middleware(['scope:admin,agente'])->post('/idioma/{idiomaId}', [IdiomasController::class, 'show']);
     //Actualizar
     Route::middleware(['scope:admin'])->put('/idioma/{idiomaId}', [IdiomasController::class, 'update']);
     //eliminar
     Route::middleware(['scope:admin'])->delete('/idioma/{idioma}', [IdiomasController::class, 'destroy']);
     // Listar
-    Route::middleware(['scope:admin,'])->post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
+    Route::middleware(['scope:admin,agente'])->post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
 
+});
+
+// reglas para roles de WSDynController
+Route::middleware(['auth:api', 'role'])->group(function() {
+
+    // Llamar metodo agentList WS
+    Route::middleware(['scope:admin,agente'])->post('/agentList', [WSDynController::class, 'agentList']);
+    Route::middleware(['scope:admin,agente'])->post('/createContactDetails', [WSDynController::class, 'createContactDetails']);
+    Route::middleware(['scope:admin,agente'])->post('/createAgreementDetail', [WSDynController::class, 'createAgreementDetail']);
+    
+    
 });
 
 Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);

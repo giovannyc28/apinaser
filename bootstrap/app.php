@@ -51,5 +51,7 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+//$app->register(Artisaninweb\SoapWrapper\ServiceProvider::class);
+//class_alias('Artisaninweb\SoapWrapper\Facade', 'SoapWrapper');
 
 return $app;

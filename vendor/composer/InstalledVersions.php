@@ -24,16 +24,25 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => 'b9d1ad42f6996b9f6c421aa70299e935bee2e4bb',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
+    'artisaninweb/laravel-soap' => 
+    array (
+      'pretty_version' => '0.3.0.10',
+      'version' => '0.3.0.10',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '809073fe1116e3e3daadcf8571fc58b0a9603574',
+    ),
     'asm89/stack-cors' => 
     array (
       'pretty_version' => 'v2.0.3',
@@ -463,12 +472,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => 'b9d1ad42f6996b9f6c421aa70299e935bee2e4bb',
     ),
     'laravel/passport' => 
     array (

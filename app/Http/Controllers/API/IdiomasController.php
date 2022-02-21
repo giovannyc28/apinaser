@@ -83,6 +83,7 @@ class IdiomasController extends Controller
     {
         $record = Idioma::where('language', '=', $idiomaId)
             ->where('section', '=', $sectionId)
+            ->where('status', '=', 'A')
             ->get();
         
         if ($record->count()>0) {

@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Mockery' => array($vendorDir . '/mockery/mockery/library'),
+    'Artisaninweb\\SoapWrapper' => array($vendorDir . '/artisaninweb/laravel-soap/src'),
 );
