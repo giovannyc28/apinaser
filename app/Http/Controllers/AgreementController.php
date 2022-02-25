@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+set_time_limit(360);
 
 use App\Models\Agreement;
 use App\Models\Beneficiary;
@@ -319,7 +320,9 @@ class AgreementController extends Controller
             $html = preg_replace("/#strEdad.#/", '', $html);
             $html = preg_replace("/#strCountryofResidence_.#/", '', $html);
             $html = preg_replace("/#strRelationship_.#/", '', $html);
-            $html = preg_replace("/#strBeneficiaryAddress1Country_.#/", '', $html);
+            $html = preg_replace("/#strBeneficiaryAddress1CountrOrRegion_.#/", '', $html);
+            $html = preg_replace("/#strEdad_.#/", '', $html);
+            
             
 
 
