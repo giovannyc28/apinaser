@@ -18,6 +18,8 @@ class Beneficiary extends Model
         'strBeneficiaryAddress1CountrOrRegion',
         'strCountryofResidence',
         'dtDateofbirth',
-        'strCompanyName'
+        'strCompanyName',
+        'strEdad',
+        'idAgreement'
     ];
 }

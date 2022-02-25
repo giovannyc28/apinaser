@@ -156,7 +156,7 @@ Route::middleware(['auth:api', 'role'])->group(function() {
     Route::middleware(['scope:admin,agente'])->post('/agentList', [WSDynController::class, 'agentList']);
     Route::middleware(['scope:admin,agente'])->post('/createContactDetails', [WSDynController::class, 'createContactDetails']);
     Route::middleware(['scope:admin,agente'])->post('/createAgreementDetail', [WSDynController::class, 'createAgreementDetail']);
-    
+    Route::middleware(['scope:admin,agente'])->post('/registrarContrato', [WSDynController::class, 'registrarContrato']);
     
 });
 

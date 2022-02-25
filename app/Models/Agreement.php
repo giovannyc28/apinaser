@@ -10,6 +10,7 @@ class Agreement extends Model
     use HasFactory;
 
     protected $fillable = [
+        'strAgreement',
         'strSupervisor',
         'strSalesRep',
         'strCustomerCareRep',
@@ -44,6 +45,7 @@ class Agreement extends Model
         'dtDateofpayment',
         'blnRecurringPayment',
         'strCompanyName',
-        'strAgentcontactEmail'
+        'strAgentcontactEmail',
+        'strObservacion'
     ];
 }

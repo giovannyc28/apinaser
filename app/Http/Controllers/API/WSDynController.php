@@ -7,6 +7,8 @@ use App\Http\Controllers\ParametroController;
 use App\Http\Controllers\AgreementController;
 use App\Http\Resources\WSDynResource;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class WSDynController extends Controller
 {
@@ -54,6 +56,22 @@ class WSDynController extends Controller
 
         return response (
             new WSDynResource($agreementResponse)
+             , 200); 
+    }
+
+
+    public function registrarContrato(Request $request){
+          
+        /*$pdf = PDF::make('dompdf.wrapper');
+    
+        return $pdf->download('itsolutionstuff.pdf');*/
+        //return PDF::loadHtml(file_get_contents(public_path().'/form9/form9.html'))->setPaper('letter')->save(public_path().'/form9/form9_es.pdf');
+        $data = $request->all();
+        $agreement = new AgreementController();
+        $agreementResponse = $agreement->storeData($data);
+        
+        return response (
+            $agreementResponse
              , 200); 
     }
     

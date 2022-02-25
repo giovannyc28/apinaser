@@ -18,7 +18,12 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'lastname' => 'required|max:255',
             'email' => 'required|email|unique:users',
-            'password' =>'required|confirmed'
+            'password' =>'required|confirmed',
+            'user_dyn' =>'max:255',
+            'telefono' =>'required|max:255',
+            'celular' =>'required|max:255',
+            'agentePadre' =>'max:255',
+
         ]);
 
         $roleDefaul = "agente";
