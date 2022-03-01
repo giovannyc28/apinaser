@@ -10,15 +10,19 @@ use Illuminate\Queue\SerializesModels;
 class NotifyMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $filename;
+    public $subject;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($subject, $filename)
     {
         //
+        $this->filename = $filename;
+        $this->subject = $subject;
     }
 
     /**
@@ -28,6 +32,8 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.demoMail');
+        return $this->view('emails.demoMail')
+            ->subject($this->subject)
+            ->attach($this->filename);
     }
 }

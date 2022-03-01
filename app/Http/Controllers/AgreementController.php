@@ -15,6 +15,7 @@ use Artisaninweb\SoapWrapper\SoapWrapper;
 use Illuminate\Support\Facades\Crypt;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Mail;
+use App\Mail\NotifyMail;
 
 class AgreementController extends Controller
 {
@@ -326,8 +327,13 @@ class AgreementController extends Controller
             
 
 
-             PDF::loadHtml($html)->setPaper('letter')->save(public_path().'/form/form_es.pdf');
+            PDF::loadHtml($html)->setPaper('letter')->save(public_path().'/form/form_es.pdf');
+            $dataMail['sendTo'] = 'giovannyc28@gmail.com';
+            $dataMail['mailAgent'] = 'giovannyc28@hotmail.com';
+            $dataMail['attachFile'] = public_path().'/form/form_es.pdf';
+            $sendMail = $this->sendMailAgreement($dataMail);
             //$respuetasServicios['$genPdf'] = $genPdf;
+            $respuetasServicios['sendMail'] = $sendMail;
             return $respuetasServicios;
             //return $form2;
 
@@ -338,6 +344,16 @@ class AgreementController extends Controller
             return $responseArray;
         }
             
+    }
+
+    public function sendMailAgreement($dataMail)
+    {
+        try {
+            $send =  Mail::to($dataMail['sendTo']);
+            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'])));
+        } catch (\Throwable $th) {
+            return ($th);
+        }
     }
 
     /**
