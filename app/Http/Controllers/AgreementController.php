@@ -326,11 +326,12 @@ class AgreementController extends Controller
             
             
 
-
-            PDF::loadHtml($html)->setPaper('letter')->save(public_path().'/form/form_es.pdf');
+            $dataMail['attachFile'] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
+            PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile']);
             $dataMail['sendTo'] = 'giovannyc28@gmail.com';
-            $dataMail['mailAgent'] = 'giovannyc28@hotmail.com';
-            $dataMail['attachFile'] = public_path().'/form/form_es.pdf';
+            $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
+            $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
+            $dataMail['mailAgentName'] = auth()->user()->name . ' '. auth()->user()->lastname;
             $sendMail = $this->sendMailAgreement($dataMail);
             //$respuetasServicios['$genPdf'] = $genPdf;
             $respuetasServicios['sendMail'] = $sendMail;
@@ -349,7 +350,8 @@ class AgreementController extends Controller
     public function sendMailAgreement($dataMail)
     {
         try {
-            $send =  Mail::to($dataMail['sendTo']);
+            $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
+                            ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);
             return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'])));
         } catch (\Throwable $th) {
             return ($th);
