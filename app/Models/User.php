@@ -25,7 +25,8 @@ class User extends Authenticatable
         'user_dyn',
         'telefono',
         'celular',
-        'agentePadre'
+        'agentePadre',
+        'status'
     ];
 
     /**

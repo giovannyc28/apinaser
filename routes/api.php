@@ -10,6 +10,7 @@ use App\Http\Controllers\API\WSDynController;
 use App\Models\User;
 use App\Models\CEO;
 use Illuminate\Database\Eloquent\ModelNotFoundException;  
+use Laravel\Passport\Token;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,8 +59,12 @@ Route::middleware('auth:api')->group(function () {
 Route::middleware(['auth:api', 'role'])->group(function() {
 
     // List users
-    Route::middleware(['scope:admin'])->get('/users', function (Request $request) {
-        return User::get();
+    Route::middleware(['scope:admin'])->post('/users', function (Request $request) {
+        //return User::get();
+        return [ 'total' => User::count(),
+                    'totalNotFiltered' => 800,
+                'rows' =>User::get()
+                ];
     });
 
     // Add/Edit User
@@ -69,19 +74,47 @@ Route::middleware(['auth:api', 'role'])->group(function() {
     });
 
     Route::middleware(['scope:admin'])->put('/user/{userId}', function(Request $request, $userId) {
-
+        $tokensRevoke=0;
         try {
+            $json = json_encode($request->all());
+            $dataRequest = json_decode($json,true);
             $user = User::findOrFail($userId);
+            $validateArr = [
+                'name' => 'max:255',
+                'lastname' => 'max:255',
+                'email' => 'email|unique:users,email,'.$userId,
+                'user_dyn' =>'max:255',
+                'telefono' =>'max:255',
+                'celular' =>'max:255',
+                'agentePadre' =>'max:255',
+                'status' => 'max:1'
+            ];
+
+            if (isset($request->all()['password'])) {
+                $validateArr['password'] = 'required|confirmed';
+                $validatedData = $request->validate($validateArr);
+                $validatedData['password'] = Hash::make($request->password);
+            } else {
+                $validatedData = $request->validate($validateArr);
+            }
+        
+            $user->update($validatedData);
+            if (isset($validatedData['status']) &&  $validatedData['status'] != 'A') {
+                $tokensRevoke = Token::where('user_id', $userId)
+                ->update(['revoked' => true]);
+            } 
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'message' => 'User not found.'
             ], 403);
         }
 
-        $user->update($request->all());
-
-        return response()->json(['message'=>'User updated successfully.']);
+        return response()->json(['message'=>'User updated successfully.',
+                    'userId' =>$userId,
+                    'data' => $request->all(), 
+                    'tokens'=> $validatedData]);
     });
+    
 
     // Delete User
     Route::middleware(['scope:admin'])->delete('/user/{userId}', function(Request $request, $userId) {

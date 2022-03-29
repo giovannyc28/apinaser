@@ -14,6 +14,7 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'lastname' => 'required|max:255',
@@ -23,7 +24,6 @@ class AuthController extends Controller
             'telefono' =>'required|max:255',
             'celular' =>'required|max:255',
             'agentePadre' =>'max:255',
-
         ]);
 
         $roleDefaul = "agente";
@@ -54,16 +54,20 @@ class AuthController extends Controller
         if(!auth()->attempt($loginData)) {
             return response(['message' => 'Invalid Credentials'], 401);
         } else {
-            auth()->user()->email_verified;
-            $userRole = auth()->user()->role()->first();
+                if (auth()->user()->status == 'A') {
+                    $userRole = auth()->user()->role()->first();
 
-            $accessToken = auth()->user()->createToken('authToken', [$userRole->role])->accessToken;
-            return response([
-                'user' => auth()->user(),
-                'role' => $userRole,
-                'email_verified' => auth()->user()->email_verified,
-                'access_token' => $accessToken,
-            ], 200);
+                    $accessToken = auth()->user()->createToken('authToken', [$userRole->role])->accessToken;
+                    return response([
+                        'user' => auth()->user(),
+                        'role' => $userRole,
+                        'email_verified' => auth()->user()->email_verified,
+                        'status' => auth()->user()->status,
+                        'access_token' => $accessToken
+                    ], 200);
+                } else {
+                    return response(['message' => 'User Invalid'], 401);
+                }
         }
     }
     public function isvalid (Request $request)
