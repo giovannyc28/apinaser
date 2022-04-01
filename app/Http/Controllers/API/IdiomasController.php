@@ -170,4 +170,37 @@ class IdiomasController extends Controller
         return response(['message' => $data ],$status);
     }
 
+    /**
+     * Display a listing languages.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lstLanguages()
+    {
+        $records = Idioma::select('language')
+            ->groupBy('language')
+            ->get();
+
+        return response (
+            IdiomasResource::collection($records)
+            , 200); 
+    }
+
+    /**
+     * Display a listing sections by language.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function lstSectionsLanguage(Request $request, $idiomaId)
+    {
+        $records = Idioma::select('section')
+            ->groupBy('section')
+            ->where('language', '=', $idiomaId)
+            ->get();
+
+        return response (
+            IdiomasResource::collection($records)
+            , 200); 
+    }
+
 }
