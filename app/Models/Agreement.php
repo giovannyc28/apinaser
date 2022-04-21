@@ -46,6 +46,7 @@ class Agreement extends Model
         'blnRecurringPayment',
         'strCompanyName',
         'strAgentcontactEmail',
-        'strObservacion'
+        'strObservacion',
+        'user_id'
     ];
 }

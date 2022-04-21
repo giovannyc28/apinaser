@@ -9,6 +9,7 @@ use App\Http\Controllers\API\IdiomasController;
 use App\Http\Controllers\API\WSDynController;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Agreement;
 use App\Models\CEO;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Passport\Token;
@@ -249,3 +250,15 @@ Route::middleware(['auth:api', 'role'])->group(function () {
 });
 
 Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
+
+Route::middleware(['auth:api', 'role'])->group(function () {
+// Ruta para listado contratos
+Route::middleware(['scope:admin,agente'])->post('/lstcontrato', function (Request $request) {
+        $contratos = Agreement::where('user_id', auth()->user()->id)->get();
+        return [
+            'total' => $contratos->count(),
+            'totalNotFiltered' => 800,
+            'rows' => $contratos
+        ];
+    });
+});
