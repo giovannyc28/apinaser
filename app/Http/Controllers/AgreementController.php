@@ -125,7 +125,7 @@ class AgreementController extends Controller
             $formAgreement['numeroRutaCheque'] = $form7['numeroRutaCheque'];
             $formAgreement['numeroCtaCheque'] = $form7['numeroCtaCheque'];
             $formAgreement['user_id'] = auth()->user()->id;
-            $formAgreement['datosIgualContratante'] = $form6['infoPregunta1'];;
+            $formAgreement['datosIgualContratante'] = isset($form6['infoPregunta1']) ? $form6['infoPregunta1'] : '';
             $formAgreement['dateNow'] = date('Y-m-d');
             
             
@@ -427,7 +427,7 @@ class AgreementController extends Controller
             $sendMail = $this->sendMailAgreement($dataMail);
             //$respuetasServicios['$genPdf'] = $genPdf;
             $respuetasServicios['sendMail'] = $sendMail;
-            //return $respuetasServicios;
+            return $respuetasServicios;
             //return $formAgreement;
             //return $form7;
 
