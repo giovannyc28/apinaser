@@ -74,5 +74,21 @@ class WSDynController extends Controller
             $agreementResponse
              , 200); 
     }
+
+
+    public function getOptionsCmr(Request $request){
+          
+        $data = $request->all();
+        $agreement = new AgreementController();
+        $body = null;
+        $agreementResponse = $agreement->getResponseMethodWS($data['metodo'], $body);
+        $labelArray = str_replace('get', '', $data['metodo']);
+        $espanol = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attr2ndLanguage']);
+        $ingles = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attrIngles']);
+        $arrIdioma = array_combine($ingles, $espanol);
+        return response (
+            $arrIdioma
+             , 200); 
+    }
     
 }

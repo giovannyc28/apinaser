@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Crypt;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Mail;
 use App\Mail\NotifyMail;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AgreementController extends Controller
 {
 
     private $url;
+
     /**
      * Display a listing of the resource.
      *
@@ -99,6 +101,8 @@ class AgreementController extends Controller
             $formAgreement['strECNames'] = $form4['strECFirstName'] . " " . $form4['strECLastName'];
             $formAgreement['valorTc'] = $form7['valorTc'];
             $formAgreement['planTime'] = $form5['options'];
+            $formAgreement['tresPagos'] = $form5['planCheck'];
+
             
             $formAgreement['strTypeTC'] = $form7['franquiciaCT'];
             $formAgreement['strNumberTC'] = $form7['numeroTc'];
@@ -366,6 +370,8 @@ class AgreementController extends Controller
                     else
                         $html = preg_replace("/".$planOption."/", '', $html);
             }
+            if ($formAgreement['tresPagos'] == 'On')
+                $html = preg_replace("/#3py#/", 'X', $html);
 
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
@@ -477,4 +483,31 @@ class AgreementController extends Controller
     {
         //
     }
+
+
+    public function getResponseMethodWS ($metodo, $body)
+    {
+        try {
+            $parametrosWsdl = new ParametroController();
+            $wsdlParam = $parametrosWsdl->getParametroFilter('WSDLDyn');
+            $this->url = $wsdlParam['url'];
+            $soapWrapperHolder = new SoapWrapper;
+            $soapWrapperHolder->add($metodo, function ($service) {
+            $service->wsdl($this->url)
+                ->trace(true);
+            });
+        
+            $response = $soapWrapperHolder->call($metodo.'.'.$metodo, [
+                'body' => $body
+            ]);
+            $json = json_encode($response);
+            $responseArray = json_decode($json,true);
+
+            return $responseArray;
+        } catch (\Throwable $th) {
+            return ($th);
+        }
+        
+    }
+
 }
