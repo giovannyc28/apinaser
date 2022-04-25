@@ -124,6 +124,7 @@ class AgreementController extends Controller
             $formAgreement['numeroRutaCheque'] = $form7['numeroRutaCheque'];
             $formAgreement['numeroCtaCheque'] = $form7['numeroCtaCheque'];
             $formAgreement['user_id'] = auth()->user()->id;
+            $formAgreement['datosIgualContratante'] = $form6['infoPregunta1'];;
             
             
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
@@ -168,6 +169,7 @@ class AgreementController extends Controller
                 $arrBeneficiario['strCountryofResidence'] = $arrValue[5];
                 $arrBeneficiario['dtDateofbirth'] = $arrValue[3];
                 $arrBeneficiario['strEdad'] = $arrValue[4];
+                $arrBeneficiario['strBeneficiaryEmail'] = $arrValue[9];
                 $arrBeneficiario['idAgreement'] = $newAgreement->id;
                 $arrBeneficiario['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiario['strBeneficiaryMobilePhone'] = '001';
@@ -195,6 +197,7 @@ class AgreementController extends Controller
                 $arrBeneficiarioContac['strAddress1City'] = $arrValue[7];
                 $arrBeneficiarioContac['strAddress1StateOrProvince'] = $arrValue[8];
                 $arrBeneficiarioContac['strAddress1CountrOrRegion'] = $arrValue[6];
+                $arrBeneficiarioContac['strEmail'] = $arrValue[9];
                 $arrBeneficiarioContac['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiarioContac['strMobilePhone'] = '001';
 /*
@@ -373,7 +376,12 @@ class AgreementController extends Controller
             if ($formAgreement['tresPagos'] == 'on')
                 $html = preg_replace("/#3py#/", 'X', $html);
             else
-            $html = preg_replace("/#3py#/", '', $html);
+                $html = preg_replace("/#3py#/", '', $html);
+
+            if ($formAgreement['datosIgualContratante'] == 'on')
+                $html = preg_replace("/#cdeq#/", 'X', $html);
+            else
+                $html = preg_replace("/#cdeq#/", '', $html);
 
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
