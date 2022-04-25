@@ -124,6 +124,7 @@ class AgreementController extends Controller
             $formAgreement['numeroRutaCheque'] = $form7['numeroRutaCheque'];
             $formAgreement['numeroCtaCheque'] = $form7['numeroCtaCheque'];
             $formAgreement['user_id'] = auth()->user()->id;
+            $formAgreement['datosIgualContratante'] = $form6['infoPregunta1'];;
             
             
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
@@ -373,7 +374,12 @@ class AgreementController extends Controller
             if ($formAgreement['tresPagos'] == 'on')
                 $html = preg_replace("/#3py#/", 'X', $html);
             else
-            $html = preg_replace("/#3py#/", '', $html);
+                $html = preg_replace("/#3py#/", '', $html);
+
+            if ($formAgreement['datosIgualContratante'] == 'on')
+                $html = preg_replace("/#cdeq#/", 'X', $html);
+            else
+                $html = preg_replace("/#cdeq#/", '', $html);
 
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
