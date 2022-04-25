@@ -169,6 +169,7 @@ class AgreementController extends Controller
                 $arrBeneficiario['strCountryofResidence'] = $arrValue[5];
                 $arrBeneficiario['dtDateofbirth'] = $arrValue[3];
                 $arrBeneficiario['strEdad'] = $arrValue[4];
+                $arrBeneficiario['strBeneficiaryEmail'] = $arrValue[9];
                 $arrBeneficiario['idAgreement'] = $newAgreement->id;
                 $arrBeneficiario['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiario['strBeneficiaryMobilePhone'] = '001';
@@ -196,6 +197,7 @@ class AgreementController extends Controller
                 $arrBeneficiarioContac['strAddress1City'] = $arrValue[7];
                 $arrBeneficiarioContac['strAddress1StateOrProvince'] = $arrValue[8];
                 $arrBeneficiarioContac['strAddress1CountrOrRegion'] = $arrValue[6];
+                $arrBeneficiarioContac['strEmail'] = $arrValue[9];
                 $arrBeneficiarioContac['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiarioContac['strMobilePhone'] = '001';
 /*
