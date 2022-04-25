@@ -128,7 +128,6 @@ class AgreementController extends Controller
             $formAgreement['datosIgualContratante'] = isset($form6['infoPregunta1']) ? $form6['infoPregunta1'] : '';
             $formAgreement['dateNow'] = date('Y-m-d');
             
-            
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
             $form4['strCompanyName'] = $wsdlParam['strCompany'];
 
@@ -218,7 +217,7 @@ class AgreementController extends Controller
                 $respuetasServicios['createBeneficiaryContactDetails'][] = $responseArrayBenCon;
 */                
             }
-
+            
             // Consumo WS registro de Titular
             $arrHolder['strFirstName'] = $form1['strAHFirstName'];
             $arrHolder['strLastName'] = $form1['strAHLastName'];
@@ -274,7 +273,8 @@ class AgreementController extends Controller
                 $respuetasServicios['createEmergencyContactDetails'] = $responseArrayHolder;
 */
              //consumo WS para tarjeta de credito
-             if (!isset($form7['medioPago']) && $form7['medioPago'] != 'on') {
+             
+             if (!(isset($form7['medioPago']) && $form7['medioPago'] == 'on')) {
                 $expira = explode('-',$form7['expiraTc']);
                 $arrTC['strFirstName'] = $form6['strFirstName'];
                 $arrTC['strLastName'] = $form6['strLastName'];
