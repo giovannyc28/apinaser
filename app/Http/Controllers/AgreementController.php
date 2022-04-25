@@ -80,12 +80,13 @@ class AgreementController extends Controller
             $form7 = json_decode($form7,true);
             $form8 = json_encode($data['form8']);        
             $form8 = json_decode($form8,true);
-
+            
             $language = json_encode($data['language']);        
             $language = json_decode($language,true);
 
             $tarifasConsulta = Tarifas::find($form5['plan']);
             $formAgreement = array_merge($form1, $form4);
+            
             $formAgreement['strAgreementType'] = $tarifasConsulta['plan_type'];
             $formAgreement['strAgreementTypeId'] = $form5['plan'];
             $formAgreement['strPaymentTerms'] = $opcionesTiempo[$form5['options']];
@@ -93,16 +94,16 @@ class AgreementController extends Controller
             $formAgreement['blnRecurringPayment'] = 'TRUE';
             $formAgreement['dtDateofpayment'] = $form7['fechaDebitoTc'];
             $formAgreement['strAgentcontactEmail'] = auth()->user()->email;
-            $formAgreement['strCompanySponsor'] = auth()->user()->agentePadre;
+            $formAgreement['strCompanySponsor'] = auth()->user()->agentePadre; 
             $formAgreement['strAgent'] = auth()->user()->user_dyn;
             $formAgreement['strAgentName'] = auth()->user()->name ." ".auth()->user()->lastname;
             $formAgreement['strCompanyName'] = $wsdlParam['strCompany'];
-            $formAgreement['strObservacion'] = $form8['observacionBox'];
+            $formAgreement['strObservacion'] = $form8['observacionBox']; 
             $formAgreement['strECNames'] = $form4['strECFirstName'] . " " . $form4['strECLastName'];
             $formAgreement['valorTc'] = $form7['valorTc'];
             $formAgreement['planTime'] = $form5['options'];
-            $formAgreement['tresPagos'] = $form5['planCheck'];
-
+            $formAgreement['tresPagos'] = isset($form5['planCheck']) ?  $form5['planCheck'] : ''; 
+            
             
             $formAgreement['strTypeTC'] = $form7['franquiciaCT'];
             $formAgreement['strNumberTC'] = $form7['numeroTc'];
@@ -118,7 +119,7 @@ class AgreementController extends Controller
             //--$formAgreement['strEmailAddressTC'] = $form6['strEmail'];
             $formAgreement['strBillToNameTC'] = $form7['nombretc'];
             $formAgreement['dtDateofpaymentTC'] = $form7['fechaDebitoTc'];
-
+            
             $formAgreement['tipoCta'] = $form7['tipoCta'];
             $formAgreement['bancoCheque'] = $form7['bancoCheque'];
             $formAgreement['numeroRutaCheque'] = $form7['numeroRutaCheque'];
@@ -153,7 +154,7 @@ class AgreementController extends Controller
             $formAgreement['strAgreement'] = rand(1000, 10000);
             $newAgreement = Agreement::create($formAgreement);
             $respuetasServicios['newAgreementidBD'] = $newAgreement->id;
-          
+            
             // Consumo WS registro de Beneficiarios y de contacto de beneficiarios
             $arrBeneficiario = null;
             $arrBeneficiarios = null;
@@ -374,11 +375,11 @@ class AgreementController extends Controller
                     else
                         $html = preg_replace("/".$planOption."/", '', $html);
             }
-            if ($formAgreement['tresPagos'] == 'on')
+            if (isset($formAgreement['tresPagos']) && $formAgreement['tresPagos'] == 'on')
                 $html = preg_replace("/#3py#/", 'X', $html);
             else
                 $html = preg_replace("/#3py#/", '', $html);
-
+            
             if ($formAgreement['datosIgualContratante'] == 'on')
                 $html = preg_replace("/#cdeq#/", 'X', $html);
             else
@@ -426,7 +427,7 @@ class AgreementController extends Controller
             $sendMail = $this->sendMailAgreement($dataMail);
             //$respuetasServicios['$genPdf'] = $genPdf;
             $respuetasServicios['sendMail'] = $sendMail;
-            return $respuetasServicios;
+            //return $respuetasServicios;
             //return $formAgreement;
             //return $form7;
 
