@@ -125,6 +125,7 @@ class AgreementController extends Controller
             $formAgreement['numeroCtaCheque'] = $form7['numeroCtaCheque'];
             $formAgreement['user_id'] = auth()->user()->id;
             $formAgreement['datosIgualContratante'] = $form6['infoPregunta1'];;
+            $formAgreement['dateNow'] = date('Y-m-d');
             
             
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
@@ -338,7 +339,7 @@ class AgreementController extends Controller
 
             $html = file_get_contents(public_path().'/form/form_'.$language.'.html'); 
             
-            $arrConversionFechas = ['dtDateofbirth', 'dtDateofpaymentTC'];
+            $arrConversionFechas = ['dtDateofbirth', 'dtDateofpaymentTC', 'dateNow'];
             foreach ($arrConversionFechas as $campo => $valor) {
                 if ($formAgreement[$valor] != ''){
                 $fecha = strtotime($formAgreement[$valor]);
