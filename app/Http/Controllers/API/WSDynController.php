@@ -83,11 +83,11 @@ class WSDynController extends Controller
         $body = null;
         $agreementResponse = $agreement->getResponseMethodWS($data['metodo'], $body);
         $labelArray = str_replace('get', '', $data['metodo']);
-        $espanol = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attr2ndLanguage']);
-        $ingles = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attrIngles']);
-        $arrIdioma = array_combine($ingles, $espanol);
+        //$espanol = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attr2ndLanguage']);
+        //$ingles = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attrIngles']);
+        //$arrIdioma = array_combine($ingles, $espanol);
         return response (
-            $arrIdioma
+            $agreementResponse
              , 200); 
     }
     
