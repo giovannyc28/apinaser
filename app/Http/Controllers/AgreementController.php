@@ -370,8 +370,10 @@ class AgreementController extends Controller
                     else
                         $html = preg_replace("/".$planOption."/", '', $html);
             }
-            if ($formAgreement['tresPagos'] == 'On')
+            if ($formAgreement['tresPagos'] == 'on')
                 $html = preg_replace("/#3py#/", 'X', $html);
+            else
+            $html = preg_replace("/#3py#/", '', $html);
 
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
