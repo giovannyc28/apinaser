@@ -112,10 +112,10 @@ class AgreementController extends Controller
             $formAgreement['strCityTC'] = $form6['strAddress1City'];
             $formAgreement['strStateTC'] = $form6['strAddress1StateOrProvince'];
             $formAgreement['strzipTC'] = $form6['strAddress1ZIPOrPostalCode'];
-            $formAgreement['strPhoneNumberTC'] = $form6['strBusinessPhone'];
-            $formAgreement['strMobilePhoneTC'] = $form6['strMobilePhone'];
+            //--$formAgreement['strPhoneNumberTC'] = $form6['strBusinessPhone'];
+            //--$formAgreement['strMobilePhoneTC'] = $form6['strMobilePhone'];
             $formAgreement['strCountryTC'] = $form6['strAddress1CountrOrRegion'];
-            $formAgreement['strEmailAddressTC'] = $form6['strEmail'];
+            //--$formAgreement['strEmailAddressTC'] = $form6['strEmail'];
             $formAgreement['strBillToNameTC'] = $form7['nombretc'];
             $formAgreement['dtDateofpaymentTC'] = $form7['fechaDebitoTc'];
 
@@ -277,7 +277,7 @@ class AgreementController extends Controller
                 $expira = explode('-',$form7['expiraTc']);
                 $arrTC['strFirstName'] = $form6['strFirstName'];
                 $arrTC['strLastName'] = $form6['strLastName'];
-                $arrTC['strMobilePhone'] = $form6['strMobilePhone'];
+                //$arrTC['strMobilePhone'] = $form6['strMobilePhone'];
                 $arrTC['strType'] = $form7['franquiciaCT'];
                 $arrTC['strName'] = $form7['nombretc'];
                 $arrTC['strNumber'] = $form7['numeroTc'];
@@ -288,9 +288,9 @@ class AgreementController extends Controller
                 $arrTC['strCity'] = $form6['strAddress1City'];
                 $arrTC['strState'] = $form6['strAddress1StateOrProvince'];
                 $arrTC['strzip'] = $form6['strAddress1ZIPOrPostalCode'];
-                $arrTC['strPhoneNumber'] = $form6['strBusinessPhone'];
+                //$arrTC['strPhoneNumber'] = $form6['strBusinessPhone'];
                 $arrTC['strCountry'] = $form6['strAddress1CountrOrRegion'];
-                $arrTC['strEmailAddress'] = $form6['strEmail'];
+                //$arrTC['strEmailAddress'] = $form6['strEmail'];
                 $arrTC['strAgreement'] = $formAgreement['strAgreement'];
                 $arrTC['strBillToName'] = $form7['nombretc'];
 
