@@ -121,16 +121,18 @@ class AgreementController extends Controller
             $formAgreement['strBillToNameTC'] = isset($form7['nombretc']) ? $form7['nombretc'] : '';
             $formAgreement['dtDateofpaymentTC'] = isset($form7['fechaDebitoTc']) ? $form7['fechaDebitoTc'] : '';
             
+            $formAgreement['medioPago'] = isset($form7['medioPago']) ? $form7['medioPago'] : '';
+            $formAgreement['tipoTransferencia'] = isset($form7['tipoTransferencia']) ? $form7['tipoTransferencia'] : '';
+            
             // DATOS de Cheque
             $formAgreement['tipoCta'] = isset($form7['tipoCta']) ? $form7['tipoCta'] : '';
             $formAgreement['bancoCheque'] = isset($form7['bancoCheque']) ? $form7['bancoCheque'] : '';
             $formAgreement['numeroRutaCheque'] = isset($form7['numeroRutaCheque']) ? $form7['numeroRutaCheque'] : '';
             $formAgreement['numeroCtaCheque'] = isset($form7['numeroCtaCheque']) ? $form7['numeroCtaCheque'] : ''; 
             // DATOS de Transferencia
-            $formAgreement['tipoTransferencia'] = isset($form7['tipoTransferencia']) ? $form7['tipoTransferencia'] : ''; 
-            $formAgreement['nombreTransferencia'] = isset($form7['nombreTransferencia']) ? $form7['nombreTransferencia'] : ''; 
-            $formAgreement['numeroReferencia'] = isset($form7['numeroReferencia']) ? $form7['numeroReferencia'] : ''; 
-            $formAgreement['numeroConfirmacion'] = isset($form7['numeroConfirmacion']) ? $form7['numeroConfirmacion'] : ''; 
+            $formAgreement['transferenciaNombres'] = isset($form7['nombreTransferencia']) ? $form7['nombreTransferencia'] : ''; 
+            $formAgreement['transferenciaReferencia'] = isset($form7['numeroReferencia']) ? $form7['numeroReferencia'] : ''; 
+            $formAgreement['transferenciaconfirmacion'] = isset($form7['numeroConfirmacion']) ? $form7['numeroConfirmacion'] : ''; 
             
             $formAgreement['user_id'] = auth()->user()->id;
             $formAgreement['datosIgualContratante'] = isset($form6['infoPregunta1']) ? $form6['infoPregunta1'] : '';
@@ -324,6 +326,7 @@ class AgreementController extends Controller
                 $respuetasServicios['createCreditCardDetails'] = $responseArrayTC;
 */
              }
+
             $preguntas = [];
             foreach ($form3 as $key => $value) {
                 
@@ -398,6 +401,16 @@ class AgreementController extends Controller
             else
                 $html = preg_replace("/#cdeq#/", '', $html);
 
+            if ($formAgreement['medioPago'] == 'BC'){
+                $html = str_replace("#ach#", "X", $html);
+            } 
+            if ($formAgreement['medioPago'] == 'TB' && $formAgreement['tipoTransferencia'] == 'zelle'){
+                $html = str_replace("#zelle#", "X", $html);
+            } 
+            if ($formAgreement['medioPago'] == 'TB' && $formAgreement['tipoTransferencia'] == 'wireTransfer'){
+                $html = str_replace("#wire#", "X", $html);
+            } 
+            
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
                 $html = str_replace("#sq_".$i."#", "X", $html);
@@ -427,6 +440,8 @@ class AgreementController extends Controller
             $html = preg_replace("/#strCountryofResidence_.#/", '', $html);
             $html = preg_replace("/#strRelationship_.#/", '', $html);
             $html = preg_replace("/#strBeneficiaryAddress1CountrOrRegion_.#/", '', $html);
+            $html = preg_replace("/#strBeneficiaryEmail_.#/", '', $html);
+            $html = preg_replace("/#strBeneficiaryAddress1City_.#/", '', $html);
             $html = preg_replace("/#strEdad_.#/", '', $html);
             
             
