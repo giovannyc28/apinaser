@@ -103,7 +103,7 @@ class AgreementController extends Controller
             $formAgreement['valorTc'] = $form7['valorTc'];
             $formAgreement['planTime'] = $form5['options'];
             $formAgreement['tresPagos'] = isset($form5['planCheck']) ?  $form5['planCheck'] : ''; 
-            
+            $formAgreement['nombreFirma'] = $form1['strAHFirstName'].' '.$form1['strAHLastName']; 
             
             $formAgreement['strTypeTC'] = $form7['franquiciaCT'];
             $formAgreement['strNumberTC'] = $form7['numeroTc'];

@@ -7,6 +7,22 @@
             margin: 30mm 45mm 30mm 45mm;
     }
     */
+    @font-face {
+        font-family: 'Herr Von Muellerhoff';
+        font-style: normal;
+        font-weight: 400;
+        src: url(https://fonts.gstatic.com/s/herrvonmuellerhoff/v13/WBL6rFjRZkREW8WqmCWYLgCkQKXb4CAft3c6.ttf) format('truetype');
+      }
+
+    #signature {
+        font-family: "Herr Von Muellerhoff'";
+        font-size: 2.5em;
+        text-align: center;
+        text-transform: capitalize;
+        /* IE 9 */
+        -ms-transform: skewY(-5deg);
+        transform: skewY(-5deg);
+    }
        body{font-family: Arial, Helvetica, sans-serif; font-size: 13px;}
         
         .imagen1 {
@@ -34,11 +50,20 @@
             height: 1006px;
             width: 810px;
         }
+        #signature {
+            font-family: "herr_von_muellerhoffregular";
+            font-size: 2.5em;
+            text-align: center;
+            text-transform: capitalize;
+            /* IE 9 */
+            -ms-transform: skewY(-5deg);
+            transform: skewY(-5deg);
+        }
     </style>
 </head>
 
 <body>
-    <p style="position:absolute;top:111px;left:670px;white-space:nowrap">#dateNow#</p>
+    <p style="color: white; font-weight: bold; position:absolute;top:111px;left:670px;white-space:nowrap">#dateNow#</p>
     <p style="position:absolute;top:150px;left:-23px;white-space:nowrap">#strAHFirstName#</p>
     <p style="position:absolute;top:150px;left:279px;white-space:nowrap">#strAHLastName#</p>
     <p style="position:absolute;top:150px;left:577px;white-space:nowrap">#dtDateofbirth#</p>
@@ -49,7 +74,7 @@
 
     <p style="position:absolute;top:226px;left:-23px;white-space:nowrap">#strAHAddress1City#</p>
     <p style="position:absolute;top:226px;left:180px;white-space:nowrap">#strAHAddress1StateOrProvince#</p>
-    <p style="position:absolute;top:226px;left:224px;white-space:nowrap">#strAHAddress1ZIPOrPostalCode#</p>
+    <p style="position:absolute;top:226px;left:380px;white-space:nowrap">#strAHAddress1ZIPOrPostalCode#</p>
     <p style="position:absolute;top:226px;left:578px;white-space:nowrap">#strCountryofResidence#</p>
 
     <p style="position:absolute;top:265px;left:-23px;white-space:nowrap">#strAHBusinessPhone#</p>
@@ -71,7 +96,7 @@
     <p style="position:absolute;top:514px;left:-23px;white-space:nowrap">#dtDateofbirth_1#</p>
     <p style="position:absolute;top:514px;left:95px;white-space:nowrap">#strEdad_1#</p>
     <p style="position:absolute;top:514px;left:141px;white-space:nowrap">#strBeneficiaryEmail_1#</p>
-    <p style="position:absolute;top:514px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:514px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_1#</p>
     <p style="position:absolute;top:514px;left:497px;white-space:nowrap">#strCountryofResidence_1#</p>
     <p style="position:absolute;top:514px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_1#</p>
 
@@ -88,8 +113,8 @@
     <p style="position:absolute;top:677px;left:578px;white-space:nowrap">#strRelationship_3#</p>
     <p style="position:absolute;top:715px;left:-23px;white-space:nowrap">#dtDateofbirth_3#</p>
     <p style="position:absolute;top:715px;left:95px;white-space:nowrap">#strEdad_3#</p>
-    <p style="position:absolute;top:715px;left:141px;white-space:nowrap">#strBeneficiaryEmail_0#</p>
-    <p style="position:absolute;top:715px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:715px;left:141px;white-space:nowrap">#strBeneficiaryEmail_3#</p>
+    <p style="position:absolute;top:715px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_3#</p>
     <p style="position:absolute;top:715px;left:497px;white-space:nowrap">#strCountryofResidence_3#</p>
     <p style="position:absolute;top:715px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_3#</p>
 
@@ -97,8 +122,8 @@
     <p style="position:absolute;top:780px;left:578px;white-space:nowrap">#strRelationship_4#</p>
     <p style="position:absolute;top:819px;left:-23px;white-space:nowrap">#dtDateofbirth_4#</p>
     <p style="position:absolute;top:819px;left:95px;white-space:nowrap">#strEdad_4#</p>
-    <p style="position:absolute;top:819px;left:141px;white-space:nowrap">#strBeneficiaryEmail_0#</p>
-    <p style="position:absolute;top:819px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:819px;left:141px;white-space:nowrap">#strBeneficiaryEmail_4#</p>
+    <p style="position:absolute;top:819px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_4#</p>
     <p style="position:absolute;top:819px;left:497px;white-space:nowrap">#strCountryofResidence_4#</p>
     <p style="position:absolute;top:819px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_4#</p>
 
@@ -111,8 +136,8 @@
     <p style="position:absolute;top:152px;left:578px;white-space:nowrap">#strRelationship_5#</p>
     <p style="position:absolute;top:189px;left:-23px;white-space:nowrap">#dtDateofbirth_5#</p>
     <p style="position:absolute;top:189px;left:95px;white-space:nowrap">#strEdad_5#</p>
-    <p style="position:absolute;top:189px;left:141px;white-space:nowrap">#strBeneficiaryEmail_0#</p>
-    <p style="position:absolute;top:189px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:189px;left:141px;white-space:nowrap">#strBeneficiaryEmail_5#</p>
+    <p style="position:absolute;top:189px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_5#</p>
     <p style="position:absolute;top:189px;left:497px;white-space:nowrap">#strCountryofResidence_5#</p>
     <p style="position:absolute;top:189px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_5#</p>
 
@@ -120,8 +145,8 @@
     <p style="position:absolute;top:254px;left:578px;white-space:nowrap">#strRelationship_6#</p>
     <p style="position:absolute;top:297px;left:-23px;white-space:nowrap">#dtDateofbirth_6#</p>
     <p style="position:absolute;top:297px;left:95px;white-space:nowrap">#strEdad_6#</p>
-    <p style="position:absolute;top:297px;left:141px;white-space:nowrap">#strBeneficiaryEmail_0#</p>
-    <p style="position:absolute;top:297px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:297px;left:141px;white-space:nowrap">#strBeneficiaryEmail_6#</p>
+    <p style="position:absolute;top:297px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_6#</p>
     <p style="position:absolute;top:297px;left:497px;white-space:nowrap">#strCountryofResidence_6#</p>
     <p style="position:absolute;top:297px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_6#</p>
 
@@ -129,8 +154,8 @@
     <p style="position:absolute;top:361px;left:578px;white-space:nowrap">#strRelationship_7#</p>
     <p style="position:absolute;top:403px;left:-23px;white-space:nowrap">#dtDateofbirth_7#</p>
     <p style="position:absolute;top:403px;left:95px;white-space:nowrap">#strEdad_7#</p>
-    <p style="position:absolute;top:403px;left:141px;white-space:nowrap">#strBeneficiaryEmail_0#</p>
-    <p style="position:absolute;top:403px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_0#</p>
+    <p style="position:absolute;top:403px;left:141px;white-space:nowrap">#strBeneficiaryEmail_7#</p>
+    <p style="position:absolute;top:403px;left:364px;white-space:nowrap">#strBeneficiaryAddress1City_7#</p>
     <p style="position:absolute;top:403px;left:497px;white-space:nowrap">#strCountryofResidence_7#</p>
     <p style="position:absolute;top:403px;left:622px;white-space:nowrap">#strBeneficiaryAddress1CountrOrRegion_7#</p>
 
@@ -198,9 +223,7 @@
 
     <p style="position:absolute;top:173px;left:-23px;white-space:nowrap">#strAgentName#</p>
     <p style="position:absolute;top:173px;left:248px;white-space:nowrap">#strAgent#</p>
-    <p style="position:absolute;top:173px;left:410px;white-space:nowrap">#campo3#</p>
     <p style="position:absolute;top:173px;left:410px;white-space:nowrap">#strAgentName#</p>
-    <p style="position:absolute;top:173px;left:647px;white-space:nowrap">#campo4#</p>
     <p style="position:absolute;top:173px;left:647px;white-space:nowrap">#dateNo#</p>
 
     <p style="position:absolute;top:249px;left:-23px;white-space:nowrap"></p>
@@ -237,11 +260,7 @@
     <p style="position:absolute;top:325px;left: 376px;white-space:nowrap">#strzipTC#</p>
     <p style="position:absolute;top:325px;left: 576px;white-space:nowrap">#strCountryTC#</p>
 
-    <p style="position:absolute;top:668px;left: -23px;white-space:nowrap">#strPhoneNumberTC#</p>
-    <p style="position:absolute;top:668px;left: 186px;white-space:nowrap">#strMobilePhoneTC#</p>
-    <p style="position:absolute;top:668px;left: 378px;white-space:nowrap">#strEmailAddressTC#</p>
-
-    <p style="line-height: 1.9; position:absolute;top:770px;left: -23px;">#strObservacion#</p>
+    
 
 </body>
 
