@@ -324,20 +324,22 @@ class AgreementController extends Controller
                     $preguntas[$intQ] = $value; 
                 }
             }
-
+            
             $respuetasServicios['Preguntas'] = $preguntas;
             $arrPreexistencias= [];
+            
             foreach ($preguntas as $idQuestion => $benIndex) {
                 $arrPregunta['strAgreement'] = $formAgreement['strAgreement'];
                 $arrPregunta['idQuestion'] = $idQuestion ;
                 foreach ($benIndex as $key => $value) {
-                    $arrPregunta['idBeneficiary'] = $respuetasServicios['newBeneficiarioIdBD'][$value];
+                    $indexQst = array_search($value, $benIndex);
+                    $arrPregunta['idBeneficiary'] = $respuetasServicios['newBeneficiarioIdBD'][$indexQst];
                     $arrPreexistencias[$idQuestion][] = $form2["'$value'"][1] . " " . $form2["'$value'"][2];
                     Preexistance::create($arrPregunta);
                 }
             }
             $respuetasServicios['arrPreexistencias'] = $arrPreexistencias;
-
+            
             $html = file_get_contents(public_path().'/form/form_'.$language.'.html'); 
             
             $arrConversionFechas = ['dtDateofbirth', 'dtDateofpaymentTC', 'dateNow'];
@@ -347,6 +349,7 @@ class AgreementController extends Controller
                 $formAgreement[$valor] =date('m/d/Y ',$fecha);
                 }
             }
+            
             foreach ($formAgreement as $key => $value) {
                 $html = str_replace(
                     "#".$key."#",
