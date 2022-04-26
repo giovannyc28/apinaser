@@ -104,11 +104,10 @@ class AgreementController extends Controller
             $formAgreement['planTime'] = $form5['options'];
             $formAgreement['tresPagos'] = isset($form5['planCheck']) ?  $form5['planCheck'] : ''; 
             
-            
-            $formAgreement['strTypeTC'] = $form7['franquiciaCT'];
-            $formAgreement['strNumberTC'] = $form7['numeroTc'];
-            $formAgreement['ExpTC'] = $form7['expiraTc'];
-            $formAgreement['strCCVTC'] = $form7['vvcTc'];
+            $formAgreement['strTypeTC'] = isset($form7['franquiciaCT']) ? $form7['franquiciaCT'] : ''; 
+            $formAgreement['strNumberTC'] = isset($form7['numeroTc']) ? $form7['numeroTc'] : '';
+            $formAgreement['ExpTC'] = isset($form7['expiraTc']) ? $form7['expiraTc'] : '';
+            $formAgreement['strCCVTC'] = isset($form7['vvcTc']) ? $form7['vvcTc'] : '';
             $formAgreement['strStreet1TC'] = $form6['strAddress1Street1'];
             $formAgreement['strCityTC'] = $form6['strAddress1City'];
             $formAgreement['strStateTC'] = $form6['strAddress1StateOrProvince'];
@@ -117,13 +116,20 @@ class AgreementController extends Controller
             //--$formAgreement['strMobilePhoneTC'] = $form6['strMobilePhone'];
             $formAgreement['strCountryTC'] = $form6['strAddress1CountrOrRegion'];
             //--$formAgreement['strEmailAddressTC'] = $form6['strEmail'];
-            $formAgreement['strBillToNameTC'] = $form7['nombretc'];
-            $formAgreement['dtDateofpaymentTC'] = $form7['fechaDebitoTc'];
+            $formAgreement['strBillToNameTC'] = isset($form7['nombretc']) ? $form7['nombretc'] : '';
+            $formAgreement['dtDateofpaymentTC'] = isset($form7['fechaDebitoTc']) ? $form7['fechaDebitoTc'] : '';
             
-            $formAgreement['tipoCta'] = $form7['tipoCta'];
-            $formAgreement['bancoCheque'] = $form7['bancoCheque'];
-            $formAgreement['numeroRutaCheque'] = $form7['numeroRutaCheque'];
-            $formAgreement['numeroCtaCheque'] = $form7['numeroCtaCheque'];
+            // DATOS de Cheque
+            $formAgreement['tipoCta'] = isset($form7['tipoCta']) ? $form7['tipoCta'] : '';
+            $formAgreement['bancoCheque'] = isset($form7['bancoCheque']) ? $form7['bancoCheque'] : '';
+            $formAgreement['numeroRutaCheque'] = isset($form7['numeroRutaCheque']) ? $form7['numeroRutaCheque'] : '';
+            $formAgreement['numeroCtaCheque'] = isset($form7['numeroCtaCheque']) ? $form7['numeroCtaCheque'] : ''; 
+            // DATOS de Transferencia
+            $formAgreement['tipoTransferencia'] = isset($form7['tipoTransferencia']) ? $form7['tipoTransferencia'] : ''; 
+            $formAgreement['nombreTransferencia'] = isset($form7['nombreTransferencia']) ? $form7['nombreTransferencia'] : ''; 
+            $formAgreement['numeroReferencia'] = isset($form7['numeroReferencia']) ? $form7['numeroReferencia'] : ''; 
+            $formAgreement['numeroConfirmacion'] = isset($form7['numeroConfirmacion']) ? $form7['numeroConfirmacion'] : ''; 
+            
             $formAgreement['user_id'] = auth()->user()->id;
             $formAgreement['datosIgualContratante'] = isset($form6['infoPregunta1']) ? $form6['infoPregunta1'] : '';
             $formAgreement['dateNow'] = date('Y-m-d');
@@ -274,7 +280,7 @@ class AgreementController extends Controller
 */
              //consumo WS para tarjeta de credito
              
-             if (!(isset($form7['medioPago']) && $form7['medioPago'] == 'on')) {
+             if ((isset($form7['medioPago']) && $form7['medioPago'] == 'TC')) {
                 $expira = explode('-',$form7['expiraTc']);
                 $arrTC['strFirstName'] = $form6['strFirstName'];
                 $arrTC['strLastName'] = $form6['strLastName'];
@@ -338,6 +344,7 @@ class AgreementController extends Controller
                     Preexistance::create($arrPregunta);
                 }
             }
+            
             $respuetasServicios['arrPreexistencias'] = $arrPreexistencias;
             
             $html = file_get_contents(public_path().'/form/form_'.$language.'.html'); 
@@ -378,6 +385,7 @@ class AgreementController extends Controller
                     else
                         $html = preg_replace("/".$planOption."/", '', $html);
             }
+            
             if (isset($formAgreement['tresPagos']) && $formAgreement['tresPagos'] == 'on')
                 $html = preg_replace("/#3py#/", 'X', $html);
             else
