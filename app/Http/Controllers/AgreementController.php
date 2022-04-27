@@ -337,6 +337,34 @@ class AgreementController extends Controller
 
              }
 
+             //consumo WS para tarjeta de credito
+             
+            if ((isset($form7['medioPago']) && $form7['medioPago'] == 'BC')) {
+                
+                $arrACH['strBankName'] = $formAgreement['bancoCheque'];
+                $arrACH['strRoutingNumber'] = $formAgreement['numeroRutaCheque'];
+                $arrACH['strAccountNumber'] = $formAgreement['numeroCtaCheque'];
+                $arrACH['strAgreement'] = $formAgreement['strAgreement'];
+                $arrACH['strGuidBusinessUnit'] = $wsdlParam['bunit'];
+
+                $soapWrapperACH = new SoapWrapper;
+                $soapWrapperACH->add('createACHAccount', function ($service) {
+                $service->wsdl($this->url)
+                    ->trace(true);
+                });
+              
+                $responseACH = $soapWrapperACH->call('createACHAccount.createACHAccount', [
+                    'body' => $arrACH
+                ]);
+                $jsonACH = json_encode($responseACH);
+                $responseArrayACH = json_decode($jsonACH,true);
+
+                //$newCreditCard = CreditCard::create($arrTC);
+
+                $respuetasServicios['createACHAccount'] = $responseArrayACH;
+
+             }
+
             $preguntas = [];
             foreach ($form3 as $key => $value) {
                 
@@ -549,6 +577,7 @@ class AgreementController extends Controller
             $parametrosWsdl = new ParametroController();
             $wsdlParam = $parametrosWsdl->getParametroFilter('WSDLDyn');
             $this->url = $wsdlParam['url'];
+            $body['strGuidBusinessUnit'] = $wsdlParam['bunit'];
             $soapWrapperHolder = new SoapWrapper;
             $soapWrapperHolder->add($metodo, function ($service) {
             $service->wsdl($this->url)
