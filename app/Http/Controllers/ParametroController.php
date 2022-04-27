@@ -97,8 +97,10 @@ class ParametroController extends Controller
             ->first();
         $this->url = $record->valor;
         $this->strCompany = $record->parametro;
+        $this->bunit = $record->bunit;
         return ['url' => $this->url,
-                'strCompany' =>$this->strCompany];
+                'strCompany' =>$this->strCompany,
+                'bunit' => $this->bunit] ;
     }
 
 

@@ -141,6 +141,7 @@ class AgreementController extends Controller
             $formAgreement['user_id'] = auth()->user()->id;
             $formAgreement['datosIgualContratante'] = isset($form6['infoPregunta1']) ? $form6['infoPregunta1'] : '';
             $formAgreement['dateNow'] = date('Y-m-d');
+            $formAgreement['strGuidBusinessUnit'] = $wsdlParam['bunit'];
             
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
             $form4['strCompanyName'] = $wsdlParam['strCompany'];
@@ -188,6 +189,7 @@ class AgreementController extends Controller
                 $arrBeneficiario['idAgreement'] = $newAgreement->id;
                 $arrBeneficiario['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiario['strBeneficiaryMobilePhone'] = '001';
+                $arrBeneficiario['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperBen = new SoapWrapper;
                 $soapWrapperBen->add('createBeneficiaryDetails', function ($service) {
@@ -215,6 +217,7 @@ class AgreementController extends Controller
                 $arrBeneficiarioContac['strEmail'] = $arrValue[9];
                 $arrBeneficiarioContac['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiarioContac['strMobilePhone'] = '001';
+                $arrBeneficiarioContac['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperBenCon = new SoapWrapper;
                 $soapWrapperBenCon->add('createBeneficiaryContactDetails', function ($service) {
@@ -244,6 +247,7 @@ class AgreementController extends Controller
             $arrHolder['strAddress1ZIPOrPostalCode'] = $form1['strAHAddress1ZIPOrPostalCode'];
             $arrHolder['strAddress1CountrOrRegion'] = $form1['strAHAddress1CountrOrRegion'];
             $arrHolder['strCompanyName'] = $wsdlParam['strCompany'];
+            $arrHolder['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperHolder = new SoapWrapper;
                 $soapWrapperHolder->add('createAgreementHolderDetails', function ($service) {
@@ -271,6 +275,7 @@ class AgreementController extends Controller
             $arrEC['strAddress1ZIPOrPostalCode'] = $form4['strECAddress1ZIPOrPostalCode'];
             $arrEC['strAddress1CountrOrRegion'] = $form4['strECAddress1CountrOrRegion'];
             $arrEC['strCompanyName'] = $form4['strCompanyName'];
+            $arrEC['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperEC = new SoapWrapper;
                 $soapWrapperEC->add('createEmergencyContactDetails', function ($service) {
@@ -308,6 +313,7 @@ class AgreementController extends Controller
                 //$arrTC['strEmailAddress'] = $form6['strEmail'];
                 $arrTC['strAgreement'] = $formAgreement['strAgreement'];
                 $arrTC['strBillToName'] = $form7['nombretc'];
+                $arrTC['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
             //Crypt::encryptString($request->secret),
             //Crypt::decryptString($encryptedValue);
