@@ -110,7 +110,8 @@ class AgreementController extends Controller
             $formAgreement['strCCVTC'] = isset($form7['vvcTc']) ? $form7['vvcTc'] : '';
             $formAgreement['nombreFirma'] = $form1['strAHFirstName'].' '.$form1['strAHLastName']; 
             
-            $formAgreement['strStreet1TC'] = $form6['strAddress1Street1'];
+            $formAgreement['strStreet1TC'] = $form6['strAddress1Street1'];  
+            $formAgreement['strNameEstadoCuenta'] = $form6['strFirstName'] . " " . $form6['strLastName'];
             $formAgreement['strCityTC'] = $form6['strAddress1City'];
             $formAgreement['strStateTC'] = $form6['strAddress1StateOrProvince'];
             $formAgreement['strzipTC'] = $form6['strAddress1ZIPOrPostalCode'];
@@ -124,6 +125,9 @@ class AgreementController extends Controller
             $formAgreement['medioPago'] = isset($form7['medioPago']) ? $form7['medioPago'] : '';
             $formAgreement['tipoTransferencia'] = isset($form7['tipoTransferencia']) ? $form7['tipoTransferencia'] : '';
             
+            $formAgreement['pagorecurrente'] = isset($form5['planValorHide']) ? number_format($form5['planValorHide'], 2, '.', ',') : '';
+            $formAgreement['valorCargo'] = isset($form5['planValorCargoHide']) ? number_format($form5['planValorCargoHide'], 2, '.', ',' ) : '';
+            $formAgreement['primerpago'] = isset($form5['planValorCargoHide']) ? number_format($form5['planValorCargoHide'] + $form5['planValorHide'], 2, '.', ',' ) : '';
             // DATOS de Cheque
             $formAgreement['tipoCta'] = isset($form7['tipoCta']) ? $form7['tipoCta'] : '';
             $formAgreement['bancoCheque'] = isset($form7['bancoCheque']) ? $form7['bancoCheque'] : '';
@@ -143,7 +147,7 @@ class AgreementController extends Controller
 
             // consumo de WS registro de Contrato
             $this->url = $wsdlParam['url'];
-/*            
+           
             $soapWrapper = new SoapWrapper;
             $soapWrapper->add('createAgreementDetail', function ($service) {
                 $service->wsdl($this->url)
@@ -159,8 +163,8 @@ class AgreementController extends Controller
             $respuetasServicios['createAgreementDetail'] = $responseArray;
             
             $formAgreement['strAgreement'] = $responseArray['createAgreementDetailResult']['AgreementNumber'];
-*/
-            $formAgreement['strAgreement'] = rand(1000, 10000);
+
+            //$formAgreement['strAgreement'] = rand(1000, 10000);
             $newAgreement = Agreement::create($formAgreement);
             $respuetasServicios['newAgreementidBD'] = $newAgreement->id;
             
@@ -184,7 +188,7 @@ class AgreementController extends Controller
                 $arrBeneficiario['idAgreement'] = $newAgreement->id;
                 $arrBeneficiario['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiario['strBeneficiaryMobilePhone'] = '001';
-/*
+
                 $soapWrapperBen = new SoapWrapper;
                 $soapWrapperBen->add('createBeneficiaryDetails', function ($service) {
                 $service->wsdl($this->url)
@@ -197,7 +201,7 @@ class AgreementController extends Controller
                 $jsonBen = json_encode($responseBen);
                 $responseArrayBen = json_decode($jsonBen,true);
                 $respuetasServicios['createBeneficiaryDetails'][] = $responseArrayBen;
-*/
+
                 
                 $newBeneficiario = Beneficiary::create($arrBeneficiario);
                 $respuetasServicios['newBeneficiarioIdBD'][] = $newBeneficiario->id;
@@ -211,7 +215,7 @@ class AgreementController extends Controller
                 $arrBeneficiarioContac['strEmail'] = $arrValue[9];
                 $arrBeneficiarioContac['strCompanyName'] = $wsdlParam['strCompany'];
                 $arrBeneficiarioContac['strMobilePhone'] = '001';
-/*
+
                 $soapWrapperBenCon = new SoapWrapper;
                 $soapWrapperBenCon->add('createBeneficiaryContactDetails', function ($service) {
                 $service->wsdl($this->url)
@@ -225,7 +229,7 @@ class AgreementController extends Controller
                 $responseArrayBenCon = json_decode($jsonBenCon,true);
 
                 $respuetasServicios['createBeneficiaryContactDetails'][] = $responseArrayBenCon;
-*/                
+               
             }
             
             // Consumo WS registro de Titular
@@ -240,7 +244,7 @@ class AgreementController extends Controller
             $arrHolder['strAddress1ZIPOrPostalCode'] = $form1['strAHAddress1ZIPOrPostalCode'];
             $arrHolder['strAddress1CountrOrRegion'] = $form1['strAHAddress1CountrOrRegion'];
             $arrHolder['strCompanyName'] = $wsdlParam['strCompany'];
-/*
+
                 $soapWrapperHolder = new SoapWrapper;
                 $soapWrapperHolder->add('createAgreementHolderDetails', function ($service) {
                 $service->wsdl($this->url)
@@ -254,7 +258,7 @@ class AgreementController extends Controller
                 $responseArrayHolder = json_decode($jsonHolder,true);
 
                 $respuetasServicios['createAgreementHolderDetails'] = $responseArrayHolder;
- */               
+              
             //consumo WS para registro de Contacto de Emergencia
             $arrEC['strFirstName'] = $form4['strECFirstName'];
             $arrEC['strLastName'] = $form4['strECLastName'];
@@ -267,7 +271,7 @@ class AgreementController extends Controller
             $arrEC['strAddress1ZIPOrPostalCode'] = $form4['strECAddress1ZIPOrPostalCode'];
             $arrEC['strAddress1CountrOrRegion'] = $form4['strECAddress1CountrOrRegion'];
             $arrEC['strCompanyName'] = $form4['strCompanyName'];
-/*
+
                 $soapWrapperEC = new SoapWrapper;
                 $soapWrapperEC->add('createEmergencyContactDetails', function ($service) {
                 $service->wsdl($this->url)
@@ -281,7 +285,7 @@ class AgreementController extends Controller
                 $responseArrayEC = json_decode($jsonEC,true);
 
                 $respuetasServicios['createEmergencyContactDetails'] = $responseArrayHolder;
-*/
+
              //consumo WS para tarjeta de credito
              
              if ((isset($form7['medioPago']) && $form7['medioPago'] == 'TC')) {
@@ -308,7 +312,7 @@ class AgreementController extends Controller
             //Crypt::encryptString($request->secret),
             //Crypt::decryptString($encryptedValue);
 
-/*
+
                 $soapWrapperTC = new SoapWrapper;
                 $soapWrapperTC->add('createCreditCardDetails', function ($service) {
                 $service->wsdl($this->url)
@@ -324,7 +328,7 @@ class AgreementController extends Controller
                 $newCreditCard = CreditCard::create($arrTC);
 
                 $respuetasServicios['createCreditCardDetails'] = $responseArrayTC;
-*/
+
              }
 
             $preguntas = [];
@@ -361,6 +365,8 @@ class AgreementController extends Controller
                 $formAgreement[$valor] =date('m/d/Y ',$fecha);
                 }
             }
+            if ($formAgreement['strBillToNameTC'] == '')
+                $html = preg_replace("/#strBillToNameTC#/", $formAgreement['strNameEstadoCuenta'], $html);
             
             foreach ($formAgreement as $key => $value) {
                 $html = str_replace(
@@ -403,13 +409,19 @@ class AgreementController extends Controller
 
             if ($formAgreement['medioPago'] == 'BC'){
                 $html = str_replace("#ach#", "X", $html);
-            } 
+            } else {
+                $html = str_replace("#ach#", "", $html);
+            }
             if ($formAgreement['medioPago'] == 'TB' && $formAgreement['tipoTransferencia'] == 'zelle'){
-                $html = str_replace("#zelle#", "X", $html);
-            } 
+                $html = str_replace("#zele#", "X", $html);
+            } else {
+                $html = str_replace("#zele#", "", $html);
+            }
             if ($formAgreement['medioPago'] == 'TB' && $formAgreement['tipoTransferencia'] == 'wireTransfer'){
                 $html = str_replace("#wire#", "X", $html);
-            } 
+            } else {
+                $html = str_replace("#wire#", "", $html);
+            }
             
             foreach ($arrPreexistencias as $i => $nombres) {
                 $html = str_replace("#quienes_".$i."#", implode(', ', $nombres), $html);
