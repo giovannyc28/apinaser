@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\API;
-set_time_limit(360);
+set_time_limit(600);
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ParametroController;
 use App\Http\Controllers\AgreementController;

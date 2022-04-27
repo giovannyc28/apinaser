@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-set_time_limit(360);
+set_time_limit(600);
 
 use App\Models\Agreement;
 use App\Models\Beneficiary;
