@@ -7,23 +7,28 @@
             margin: 30mm 45mm 30mm 45mm;
     }
     */
-    @font-face {
-        font-family: 'Herr Von Muellerhoff';
-        font-style: normal;
-        font-weight: 400;
-        src: url(https://fonts.gstatic.com/s/herrvonmuellerhoff/v13/WBL6rFjRZkREW8WqmCWYLgCkQKXb4CAft3c6.ttf) format('truetype');
-      }
-
-    #signature {
-        font-family: "Herr Von Muellerhoff'";
-        font-size: 2.5em;
-        text-align: center;
-        text-transform: capitalize;
-        /* IE 9 */
-        -ms-transform: skewY(-5deg);
-        transform: skewY(-5deg);
-    }
-       body{font-family: Arial, Helvetica, sans-serif; font-size: 13px;}
+        
+        @font-face {
+            font-family: 'Herr Von Muellerhoff';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/herrvonmuellerhoff/v13/WBL6rFjRZkREW8WqmCWYLgCkQKXb4CAft3c6.ttf) format('truetype');
+        }
+        
+        #signature {
+            font-family: "Herr Von Muellerhoff'";
+            font-size: 2.5em;
+            text-align: center;
+            text-transform: capitalize;
+            /* IE 9 */
+            -ms-transform: skewY(-5deg);
+            transform: skewY(-5deg);
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+        }
         
         .imagen1 {
             height: 1005px;
@@ -50,7 +55,6 @@
             height: 1006px;
             width: 810px;
         }
-
     </style>
 </head>
 
@@ -61,17 +65,17 @@
     <p style="position:absolute;top:150px;left:577px;white-space:nowrap">#dtDateofbirth#</p>
 
     <p style="position:absolute;top:188px;left:-23px;white-space:nowrap">#strAHAddress1Street1#</p>
-    <p style="position:absolute;top:188px;left:537px;white-space:nowrap">#strMaritalStatus#</p>
-    <p style="position:absolute;top:188px;left:685px;white-space:nowrap">#strGender#</p>
+    <p style="position:absolute;top:188px;left:537px;white-space:nowrap">#estadoCivilValue#</p>
+    <p style="position:absolute;top:188px;left:685px;white-space:nowrap">#strGenderValue#</p>
 
     <p style="position:absolute;top:226px;left:-23px;white-space:nowrap">#strAHAddress1City#</p>
     <p style="position:absolute;top:226px;left:180px;white-space:nowrap">#strAHAddress1StateOrProvince#</p>
     <p style="position:absolute;top:226px;left:380px;white-space:nowrap">#strAHAddress1ZIPOrPostalCode#</p>
-    <p style="position:absolute;top:226px;left:578px;white-space:nowrap">#strCountryofResidence#</p>
+    <p style="position:absolute;top:226px;left:578px;white-space:nowrap">#strCountryofResidenceValue#</p>
 
     <p style="position:absolute;top:265px;left:-23px;white-space:nowrap">#strAHBusinessPhone#</p>
     <p style="position:absolute;top:265px;left:141px;white-space:nowrap">#strAHMobilePhone#</p>
-    <p style="position:absolute;top:265px;left:342px;white-space:nowrap">#strAHAddress1CountrOrRegion#</p>
+    <p style="position:absolute;top:265px;left:342px;white-space:nowrap">#strAHAddress1CountrOrRegionValue#</p>
     <p style="position:absolute;top:265px;left:538px;white-space:nowrap">#strAHEmail#</p>
 
     <p style="position:absolute;top:373px;left:-23px;white-space:nowrap">#strBeneficiaryNames_0#</p>
@@ -164,39 +168,35 @@
     <p style="position:absolute;top:635px;left:691px;white-space:nowrap">#nq_4#</p>
 
     <p style="font-size: 10px; line-height: 1; position:absolute;top:486px;left: -23px; right: 100;">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    #quienes_1#</p>
-    
-    <p style="font-size: 10px; line-height: 1; position:absolute;top:534px;left: -23px; right: 100;">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    #quienes_2#</p>
-    
-    <p style="font-size: 10px; line-height: 1; position:absolute;top:584px;left: -23px; right: 100;">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    #quienes_3#</p>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        #quienes_1#
+    </p>
 
-    
+    <p style="font-size: 10px; line-height: 1; position:absolute;top:534px;left: -23px; right: 100;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        #quienes_2#
+    </p>
+
+    <p style="font-size: 10px; line-height: 1; position:absolute;top:584px;left: -23px; right: 100;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        #quienes_3#
+    </p>
+
+
     <p style="font-size: 10px; line-height: 1; position:absolute;top:643px;left: -23px; right: 100;">
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    #quienes_4#</p>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        #quienes_4#
+    </p>
 
     <p style="position:absolute;top:710px;left:-23px;white-space:nowrap">#strECNames#</p>
-    <p style="position:absolute;top:710px;left:573px;white-space:nowrap">#cteParentesco#</p>
+    <p style="position:absolute;top:710px;left:573px;white-space:nowrap">#cteParentescoValue#</p>
 
     <p style="position:absolute;top:751px;left:-23px;white-space:nowrap">#strECAddress1Street1#</p>
 
     <p style="position:absolute;top:790px;left:-23px;white-space:nowrap">#strECAddress1City#</p>
     <p style="position:absolute;top:790px;left:180px;white-space:nowrap">#strECAddress1StateOrProvince#</p>
     <p style="position:absolute;top:790px;left:378px;white-space:nowrap">#strECAddress1ZIPOrPostalCode#</p>
-    <p style="position:absolute;top:790px;left:572px;white-space:nowrap">#strECAddress1CountrOrRegion#</p>
+    <p style="position:absolute;top:790px;left:572px;white-space:nowrap">#strECAddress1CountrOrRegionValue#</p>
 
     <p style="position:absolute;top:834px;left:-23px;white-space:nowrap">#strECBusinessPhone#</p>
     <p style="position:absolute;top:834px;left:180px;white-space:nowrap">#strECMobilePhone#</p>
@@ -256,13 +256,13 @@
 
     <p style="position:absolute;top:470px;left: -21px;white-space:nowrap">#ach#</p>
 
-       <p style="position:absolute;top:567px;left: -1px;white-space:nowrap">#zele#</p>
+    <p style="position:absolute;top:567px;left: -1px;white-space:nowrap">#zele#</p>
     <p style="position:absolute;top:567px;left: 79px;white-space:nowrap">#wire#</p>
 
     <p style="position:absolute;top:615px;left: -5px;white-space:nowrap">#transferenciaNombres#</p>
     <p style="position:absolute;top:615px;left: 334px;white-space:nowrap">#transferenciaReferencia#</p>
     <p style="position:absolute;top:615px;left: 548px;white-space:nowrap">#transferenciaconfirmacion#</p>
-    
+
 
     <p id="signature" style="position:absolute;top:660px;left: 400px;white-space:nowrap">#nombreFirma#</p>
     <p style="line-height: 1.9; position:absolute;top:774px;left: -21px;">#strObservacion#</p>
