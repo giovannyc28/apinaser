@@ -91,9 +91,14 @@ class AgreementController extends Controller
             $formAgreement['strPaymentTerms'] = $form5['planPeriodo'];
             $formAgreement['strAgreementStatus'] = "In Progress";
             $formAgreement['blnRecurringPayment'] = 'TRUE';
-            $formAgreement['dtDateofpayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'TC' ? $form7['fechaDebitoTc'] : '';
-            $formAgreement['dtDateofpayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'BC' ? $form7['fechaDebitoBC'] : '';
-            $formAgreement['dtDateofpayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'TB' ? $form7['fechaDebitoTB'] : '';
+            
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'TC')
+                $formAgreement['dtDateofpayment'] =  $form7['fechaDebitoTc'];
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'BC')
+                $formAgreement['dtDateofpayment'] =  $form7['fechaDebitoBC'];
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'TB')
+                $formAgreement['dtDateofpayment'] =  $form7['fechaDebitoTB'];
+            
             //$formAgreement['dtDateofpayment'] = $form7['fechaDebitoTc'];
             $formAgreement['strAgentcontactEmail'] = auth()->user()->email;
             $formAgreement['strCompanySponsor'] = ''; //auth()->user()->agentePadre; 
@@ -259,7 +264,6 @@ class AgreementController extends Controller
                 $respuetasServicios['createBeneficiaryContactDetails'][] = $responseArrayBenCon;
                
             }
-
             // Consumo WS registro de Titular
             $arrHolder['strFirstName'] = $form1['strAHFirstName'];
             $arrHolder['strLastName'] = $form1['strAHLastName'];
@@ -362,7 +366,6 @@ class AgreementController extends Controller
                 $respuetasServicios['createCreditCardDetails'] = $newCreditCard;
 
              }
-
              //consumo WS para Cheque
              
             if ((isset($form7['medioPago']) && $form7['medioPago'] == 'BC')) {
@@ -375,6 +378,10 @@ class AgreementController extends Controller
                 $arrACH['strType'] = $form7['tipoCta'];
                 $arrACH['strAgreement'] = $formAgreement['strAgreement'];
                 $arrACH['blnPrimaryAccount'] = true;
+                $arrACH['strFirstName'] = $formAgreement['strAHFirstName'];
+                $arrACH['strLastName'] = $formAgreement['strAHLastName'];
+                $arrACH['strAccount'] ='';
+                $arrACH['strContact'] = '';
                 $arrACH['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperACH = new SoapWrapper;
@@ -441,7 +448,6 @@ class AgreementController extends Controller
                 $respuetasServicios['createAgreementNote'] = $responseArrayNote;
                 
             }
-
             $respuetasServicios['Preguntas'] = $preguntas;
             $arrPreexistencias= [];
             //Preexistencias Beneficiarios
@@ -456,6 +462,7 @@ class AgreementController extends Controller
                 }
             }
             $respuetasServicios['arrPreexistencias'] = $arrPreexistencias;
+            
             $html = file_get_contents(public_path().'/form/form_'.$language.'.html'); 
             
             $arrConversionFechas = ['dtDateofbirth', 'dtDateofpaymentTC', 'dateNow'];
