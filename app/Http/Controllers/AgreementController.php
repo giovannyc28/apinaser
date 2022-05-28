@@ -152,9 +152,13 @@ class AgreementController extends Controller
             $formAgreement['estadoCivilValue'] = $form1['estadoCivilValue'];
             $form6['strCompanyName'] = $wsdlParam['strCompany'];
             $form4['strCompanyName'] = $wsdlParam['strCompany'];
-            $formAgreement['strPrimaryPayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'TC' ? 'Credit Card' : '';
-            $formAgreement['strPrimaryPayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'BC' ? 'ACH' : '';
-            $formAgreement['strPrimaryPayment'] = isset($form7['medioPago']) && $form7['medioPago'] == 'TB' ? 'Other' : '';
+            
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'TC')
+                $formAgreement['strPrimaryPayment'] =  'Credit Card';
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'BC')
+                $formAgreement['strPrimaryPayment'] = 'ACH Check';
+            if(isset($form7['medioPago']) && $form7['medioPago'] == 'TB')
+                $formAgreement['strPrimaryPayment'] = 'Other';
             
 
             // consumo de WS registro de Contrato
@@ -172,6 +176,7 @@ class AgreementController extends Controller
             $json = json_encode($response);
             $responseArray = json_decode($json,true);
 
+            $respuetasServicios['createAgreementDetailData'] = $formAgreement;
             $respuetasServicios['createAgreementDetail'] = $responseArray;
             
             $formAgreement['strAgreement'] = $responseArray['createAgreementDetailResult']['AgreementNumber'];
@@ -370,18 +375,18 @@ class AgreementController extends Controller
              
             if ((isset($form7['medioPago']) && $form7['medioPago'] == 'BC')) {
                 
-                $arrACH['strName'] = $form7['bancoCheque'];
+                $arrACH['strName'] = $form7['bancoCheque'] .' '.$formAgreement['strAgreement'];
                 $arrACH['strRoutingNumber'] = $form7['numeroRutaCheque'];
-                $arrACH['strPaymentGateway'] = 'Authorize.Net';
                 $arrACH['strAccountNumber'] = $form7['numeroCtaCheque'];
-                $arrACH['strBankName'] = $form7['bancoCheque'];
-                $arrACH['strType'] = $form7['tipoCta'];
+                $arrACH['strType'] =  $form7['tipoCta'];
                 $arrACH['strAgreement'] = $formAgreement['strAgreement'];
-                $arrACH['blnPrimaryAccount'] = true;
+                $arrACH['strPaymentGateway'] = 'Authorize.Net';
+                $arrACH['strBankName'] = $form7['bancoCheque'];
                 $arrACH['strFirstName'] = $formAgreement['strAHFirstName'];
                 $arrACH['strLastName'] = $formAgreement['strAHLastName'];
-                $arrACH['strAccount'] ='';
-                $arrACH['strContact'] = '';
+                $arrACH['strAccount'] = null;
+                $arrACH['strContact'] = null;
+                $arrACH['blnPrimaryAccount'] = 'ACH Check';//true;
                 $arrACH['strGuidBusinessUnit'] = $wsdlParam['bunit'];
 
                 $soapWrapperACH = new SoapWrapper;
@@ -399,6 +404,8 @@ class AgreementController extends Controller
                 //$newCreditCard = CreditCard::create($arrTC);
 
                 $respuetasServicios['createACHAccount'] = $responseArrayACH;
+                $respuetasServicios['soapWrapperACH'] = $soapWrapperACH;
+                $respuetasServicios['wsdl'] = $arrACH;
 
              }
 
@@ -428,7 +435,7 @@ class AgreementController extends Controller
              }
 
              //Registro de nota
-             if ((isset($form8['observacionBox']) && strlen($form8['observacionBox']))) {
+             if ((isset($form8['observacionBox']) && strlen($form8['observacionBox']) > 0)) {
                 $noteAgreement['strTitle'] = 'NOTE';
                 $noteAgreement['strDescription'] = $form8['observacionBox'];
                 $noteAgreement['strAgreement'] = $formAgreement['strAgreement'];
