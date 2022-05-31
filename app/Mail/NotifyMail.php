@@ -18,11 +18,12 @@ class NotifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($subject, $filename)
+    public function __construct($subject, $filename, $template)
     {
         //
         $this->filename = $filename;
         $this->subject = $subject;
+        $this->template = $template
     }
 
     /**
@@ -32,7 +33,7 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.demoMail')
+        return $this->view($this->template)
             ->subject($this->subject)
             ->attach($this->filename);
     }
