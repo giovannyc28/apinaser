@@ -31,6 +31,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->post('/logout', function (Request $request) {
     $token = $request->user()->token();
@@ -247,9 +248,10 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::middleware(['scope:admin,agente'])->post('/createContactDetails', [WSDynController::class, 'createContactDetails']);
     Route::middleware(['scope:admin,agente'])->post('/createAgreementDetail', [WSDynController::class, 'createAgreementDetail']);
     Route::middleware(['scope:admin,agente'])->post('/registrarContrato', [WSDynController::class, 'registrarContrato']);
-    Route::middleware(['scope:admin,agente'])->post('/options', [WSDynController::class, 'getOptionsCmr']);
+    
 });
 
+Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
 Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
 
 Route::middleware(['auth:api', 'role'])->group(function () {
