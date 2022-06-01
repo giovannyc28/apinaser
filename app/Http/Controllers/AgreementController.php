@@ -600,7 +600,7 @@ class AgreementController extends Controller
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile']), $template));
+            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'], $template) ));
         } catch (\Throwable $th) {
             return ($th);
         }
