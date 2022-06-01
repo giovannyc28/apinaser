@@ -248,11 +248,11 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::middleware(['scope:admin,agente'])->post('/createContactDetails', [WSDynController::class, 'createContactDetails']);
     Route::middleware(['scope:admin,agente'])->post('/createAgreementDetail', [WSDynController::class, 'createAgreementDetail']);
     Route::middleware(['scope:admin,agente'])->post('/registrarContrato', [WSDynController::class, 'registrarContrato']);
-    
+    Route::middleware(['scope:admin,agente'])->post('/options', [WSDynController::class, 'getOptionsCmr']);
 });
 
 Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
-Route::post('/idioma/{idiomaId}/{sectionId}', [IdiomasController::class, 'showpart']);
+Route::post('/options', [WSDynController::class, 'getOptionsCmr']);
 
 Route::middleware(['auth:api', 'role'])->group(function () {
 // Ruta para listado contratos
