@@ -12,6 +12,7 @@ class NotifyMail extends Mailable
     use Queueable, SerializesModels;
     public $filename;
     public $subject;
+    public $template;
 
     /**
      * Create a new message instance.
@@ -23,7 +24,7 @@ class NotifyMail extends Mailable
         //
         $this->filename = $filename;
         $this->subject = $subject;
-        $this->template = $template
+        $this->template = $template;
     }
 
     /**
@@ -33,7 +34,7 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->view($this->template)
+        return $this->view('emails.demoMail')
             ->subject($this->subject)
             ->attach($this->filename);
     }

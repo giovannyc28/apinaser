@@ -578,8 +578,8 @@ class AgreementController extends Controller
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
             $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
             $dataMail['mailAgentName'] = auth()->user()->name . ' '. auth()->user()->lastname;
-            $template = 'emails.messageAgreement_'.$language;
-            $sendMail = $this->sendMailAgreement($dataMail, $template);
+            $dataMail['template'] = 'emails.messageAgreement_'.$language;
+            $sendMail = $this->sendMailAgreement($dataMail);
             //$respuetasServicios['$genPdf'] = $genPdf;
             $respuetasServicios['sendMail'] = $sendMail;
             return $respuetasServicios;
@@ -595,12 +595,12 @@ class AgreementController extends Controller
             
     }
 
-    public function sendMailAgreement($dataMail, $template)
+    public function sendMailAgreement($dataMail)
     {
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'], $template) ));
+            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
         }
