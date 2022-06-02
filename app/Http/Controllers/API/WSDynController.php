@@ -49,7 +49,7 @@ class WSDynController extends Controller
             , 200); 
     }
 
-    public function createAgreementDB(Request $request){
+    /*public function createAgreementDB(Request $request){
         $data = $request->all();
         $agreement = new AgreementController();
         $agreementResponse = $agreement->store($data);
@@ -57,7 +57,7 @@ class WSDynController extends Controller
         return response (
             new WSDynResource($agreementResponse)
              , 200); 
-    }
+    }*/
 
 
     public function registrarContrato(Request $request){

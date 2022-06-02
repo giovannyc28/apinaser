@@ -15,7 +15,8 @@ use App\Http\Controllers\ParametroController;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Illuminate\Support\Facades\Crypt;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Mail;
+//use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifyMail;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -187,6 +188,8 @@ class AgreementController extends Controller
             
             //Preguntas Preexistencias
             $preguntas = [];
+            $arrBeneficiarioPreExiste = [];
+
             foreach ($form3 as $key => $value) {
                 
                 if (strpos($key,'[]') > 0){
@@ -579,9 +582,10 @@ class AgreementController extends Controller
             $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
             $dataMail['mailAgentName'] = auth()->user()->name . ' '. auth()->user()->lastname;
             $dataMail['template'] = 'emails.messageAgreement_'.$language;
+            $dataMail['subject'] = $language == 'es' ? 'Afiliación Plan Funerario Internacional': 'International Funeral Plan Agreement'; 
             $sendMail = $this->sendMailAgreement($dataMail);
-            //$respuetasServicios['$genPdf'] = $genPdf;
-            $respuetasServicios['sendMail'] = $sendMail;
+            
+            $respuetasServicios['email'] =  $sendMail;
             return $respuetasServicios;
             //return $formAgreement;
             //return $form7;
@@ -600,7 +604,7 @@ class AgreementController extends Controller
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile'], $dataMail['template']) ));
+            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
         }
