@@ -7,12 +7,16 @@ use App\Http\Controllers\API\CEOController;
 use App\Http\Controllers\API\TarifasController;
 use App\Http\Controllers\API\IdiomasController;
 use App\Http\Controllers\API\WSDynController;
+use App\Http\Controllers\API\ForgotController;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Agreement;
-use App\Models\CEO;
+//use App\Models\CEO;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Laravel\Passport\Token;
+//use Illuminate\Support\Facades\DB
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +36,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+Route::post('/forgotPassword', [ForgotController::class, 'forgot']);
+Route::post('/resetPassword', [ForgotController::class, 'reset']);
 
 Route::middleware('auth:api')->post('/logout', function (Request $request) {
     $token = $request->user()->token();
@@ -257,7 +264,7 @@ Route::post('/options', [WSDynController::class, 'getOptionsCmr']);
 Route::middleware(['auth:api', 'role'])->group(function () {
 // Ruta para listado contratos
 Route::middleware(['scope:admin,agente'])->post('/lstcontrato', function (Request $request) {
-        $contratos = Agreement::where('user_id', auth()->user()->id)->get();
+        $contratos = Agreement::select(DB::raw("*, DATE_FORMAT(dtDateofpayment, '%m/%d/%Y')as datePay, DATE_FORMAT(created_at, '%m/%d/%Y') as createon"))->where('user_id', auth()->user()->id)->get();
         return [
             'total' => $contratos->count(),
             'totalNotFiltered' => 800,
@@ -265,3 +272,5 @@ Route::middleware(['scope:admin,agente'])->post('/lstcontrato', function (Reques
         ];
     });
 });
+
+
