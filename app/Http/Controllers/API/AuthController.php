@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Factory;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Log;
@@ -21,9 +21,10 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
             'password' =>'required|confirmed',
             'user_dyn' =>'max:255',
-            'telefono' =>'required|max:255',
+            //'telefono' =>'required|max:255',
             'celular' =>'required|max:255',
             'agentePadre' =>'max:255',
+            'status' => 'max:1'
         ]);
 
         $roleDefaul = "agente";
@@ -39,7 +40,7 @@ class AuthController extends Controller
 
         return response([
             'user' => $user,
-            'access_token' => $accessToken,
+            //'access_token' => $accessToken,
         ]);
 
     }

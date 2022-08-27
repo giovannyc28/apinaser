@@ -20,7 +20,12 @@ class Tarifas extends Model
         'anualmultiple_pays',
         'cant_person',
         'value_kid',
-        'value_adult',  
+        'value_adult',
+        'language',
+        'yearly_subscription_discount',
+        'halfyear_subscription_discount',
+        'quarterly_subscription_discount',  
+        'monthly_subscription_discount' 
     ];
 
 }

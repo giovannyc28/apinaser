@@ -8,6 +8,8 @@ use App\Http\Controllers\AgreementController;
 use App\Http\Resources\WSDynResource;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Filtro;
+use App\Http\Resources\FiltrosResource;
 
 
 class WSDynController extends Controller
@@ -49,7 +51,7 @@ class WSDynController extends Controller
             , 200); 
     }
 
-    public function createAgreementDB(Request $request){
+    /*public function createAgreementDB(Request $request){
         $data = $request->all();
         $agreement = new AgreementController();
         $agreementResponse = $agreement->store($data);
@@ -57,7 +59,7 @@ class WSDynController extends Controller
         return response (
             new WSDynResource($agreementResponse)
              , 200); 
-    }
+    }*/
 
 
     public function registrarContrato(Request $request){
@@ -86,6 +88,11 @@ class WSDynController extends Controller
         $espanol = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attr2ndLanguage']);
         $ingles = array_column($agreementResponse[$data['metodo']."Result"][$labelArray], $data['attrIngles']);
         $arrIdioma = array_combine($ingles, $espanol);
+        $opcionesFiltro = Filtro::select('valor')->where('metodo', '=', $data['metodo'])->get()->toarray();
+        if (count($opcionesFiltro) > 0){
+            $opcionesFiltro = array_column($opcionesFiltro, 'valor');
+            $arrIdioma = array_diff_key($arrIdioma, array_flip($opcionesFiltro));
+        }
         return response (
             $arrIdioma
              , 200); 

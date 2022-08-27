@@ -15,7 +15,8 @@ use App\Http\Controllers\ParametroController;
 use Artisaninweb\SoapWrapper\SoapWrapper;
 use Illuminate\Support\Facades\Crypt;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Mail;
+//use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifyMail;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -187,6 +188,8 @@ class AgreementController extends Controller
             
             //Preguntas Preexistencias
             $preguntas = [];
+            $arrBeneficiarioPreExiste = [];
+
             foreach ($form3 as $key => $value) {
                 
                 if (strpos($key,'[]') > 0){
@@ -209,14 +212,17 @@ class AgreementController extends Controller
             $arrBeneficiarioContac = null;
             foreach ($form2 as $pos => $arrValue) {
                 $arrBeneficiario['strAgreement'] = $formAgreement['strAgreement'];
-                $arrBeneficiario['strRelationship'] = $language == 'en' ? $arrValue[0]: $arrValue[10];
+                $arrBeneficiario['strRelationship'] = $arrValue[0];
+                $arrBeneficiario['strRelationshipValue'] = $language == 'en' ? $arrValue[0]: $arrValue[10];
                 $arrBeneficiario['strBeneficiaryFirstName'] = $arrValue[1];
                 $arrBeneficiario['strBeneficiaryLastName'] = $arrValue[2];
                 $arrBeneficiario['strBeneficiaryNames'] = $arrValue[1] . " " .$arrValue[2];
                 $arrBeneficiario['strBeneficiaryAddress1City'] = $arrValue[7];
                 $arrBeneficiario['strBeneficiaryAddress1StateOrProvince'] = $arrValue[8];
-                $arrBeneficiario['strBeneficiaryAddress1CountrOrRegion'] = $language == 'en' ? $arrValue[6] : $arrValue[12];
-                $arrBeneficiario['strCountryofResidence'] = $language == 'en' ? $arrValue[5] : $arrValue[11];
+                $arrBeneficiario['strBeneficiaryAddress1CountrOrRegion'] = $arrValue[6];
+                $arrBeneficiario['strBeneficiaryAddress1CountrOrRegionValue'] = $language == 'en' ? $arrValue[6] : $arrValue[12];
+                $arrBeneficiario['strCountryofResidence'] = $arrValue[5];
+                $arrBeneficiario['strCountryofResidenceValue'] = $language == 'en' ? $arrValue[5] : $arrValue[11];
                 $arrBeneficiario['dtDateofbirth'] = $arrValue[3];
                 $arrBeneficiario['strEdad'] = $arrValue[4];
                 $arrBeneficiario['strBeneficiaryEmail'] = $arrValue[9];
@@ -563,9 +569,9 @@ class AgreementController extends Controller
             $html = preg_replace("/#strBeneficiaryNames_.#/", '', $html);
             $html = preg_replace("/#dtDateofbirth_.#/", '', $html);
             $html = preg_replace("/#strEdad.#/", '', $html);
-            $html = preg_replace("/#strCountryofResidence_.#/", '', $html);
-            $html = preg_replace("/#strRelationship_.#/", '', $html);
-            $html = preg_replace("/#strBeneficiaryAddress1CountrOrRegion_.#/", '', $html);
+            $html = preg_replace("/#strCountryofResidenceValue_.#/", '', $html);
+            $html = preg_replace("/#strRelationshipValue_.#/", '', $html);
+            $html = preg_replace("/#strBeneficiaryAddress1CountrOrRegionValue_.#/", '', $html);
             $html = preg_replace("/#strBeneficiaryEmail_.#/", '', $html);
             $html = preg_replace("/#strBeneficiaryAddress1City_.#/", '', $html);
             $html = preg_replace("/#strEdad_.#/", '', $html);
@@ -578,10 +584,11 @@ class AgreementController extends Controller
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
             $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
             $dataMail['mailAgentName'] = auth()->user()->name . ' '. auth()->user()->lastname;
-            $template = 'emails.messageAgreement_'.$language;
-            $sendMail = $this->sendMailAgreement($dataMail, $template);
-            //$respuetasServicios['$genPdf'] = $genPdf;
-            $respuetasServicios['sendMail'] = $sendMail;
+            $dataMail['template'] = 'emails.messageAgreement_'.$language;
+            $dataMail['subject'] = $language == 'es' ? 'Afiliación Plan Funerario Internacional': 'International Funeral Plan Agreement'; 
+            $sendMail = $this->sendMailAgreement($dataMail);
+            
+            $respuetasServicios['email'] =  $sendMail;
             return $respuetasServicios;
             //return $formAgreement;
             //return $form7;
@@ -595,12 +602,12 @@ class AgreementController extends Controller
             
     }
 
-    public function sendMailAgreement($dataMail, $template)
+    public function sendMailAgreement($dataMail)
     {
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail('Envio de Cuenta Contrato',$dataMail['attachFile']), $template));
+            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
         }
