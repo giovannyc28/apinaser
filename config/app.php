@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
