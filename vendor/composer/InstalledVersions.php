@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3053e837463644339d236b82c5e711e8a89cf397',
+    'reference' => '241025aa00a22d5b290a66d08c74b92fe1044af6',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -495,7 +495,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3053e837463644339d236b82c5e711e8a89cf397',
+      'reference' => '241025aa00a22d5b290a66d08c74b92fe1044af6',
     ),
     'laravel/passport' => 
     array (
@@ -1012,6 +1012,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'fc9bb7fb5388691fd7373cd44dcb4d63bbcf24df',
+    ),
+    'rap2hpoutre/laravel-log-viewer' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '52e7c703a1e83cdae450f406c7d8472332dfb34e',
     ),
     'rhumsaa/uuid' => 
     array (

@@ -588,6 +588,13 @@ class ComposerStaticInitec7cf3257a785cfd4ca6a469816970ed
     );
 
     public static $prefixesPsr0 = array (
+        'R' => 
+        array (
+            'Rap2hpoutre\\LaravelLogViewer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src',
+            ),
+        ),
         'M' => 
         array (
             'Mockery' => 
@@ -609,6 +616,7 @@ class ComposerStaticInitec7cf3257a785cfd4ca6a469816970ed
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\API\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/AuthController.php',
         'App\\Http\\Controllers\\API\\CEOController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/CEOController.php',
+        'App\\Http\\Controllers\\API\\ForgotController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/ForgotController.php',
         'App\\Http\\Controllers\\API\\IdiomasController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/IdiomasController.php',
         'App\\Http\\Controllers\\API\\TarifasController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/TarifasController.php',
         'App\\Http\\Controllers\\API\\WSDynController' => __DIR__ . '/../..' . '/app/Http/Controllers/API/WSDynController.php',
@@ -618,6 +626,7 @@ class ComposerStaticInitec7cf3257a785cfd4ca6a469816970ed
         'App\\Http\\Controllers\\CreditCardController' => __DIR__ . '/../..' . '/app/Http/Controllers/CreditCardController.php',
         'App\\Http\\Controllers\\ParametroController' => __DIR__ . '/../..' . '/app/Http/Controllers/ParametroController.php',
         'App\\Http\\Controllers\\PreexistanceController' => __DIR__ . '/../..' . '/app/Http/Controllers/PreexistanceController.php',
+        'App\\Http\\Controllers\\SendEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/SendEmailController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckRole' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckRole.php',
@@ -628,18 +637,25 @@ class ComposerStaticInitec7cf3257a785cfd4ca6a469816970ed
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\ForgotRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ForgotRequest.php',
+        'App\\Http\\Requests\\ResetRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ResetRequest.php',
         'App\\Http\\Resources\\AgreementResource' => __DIR__ . '/../..' . '/app/Http/Resources/AgreementResource.php',
         'App\\Http\\Resources\\BeneficiaryResource' => __DIR__ . '/../..' . '/app/Http/Resources/BeneficiaryResource.php',
         'App\\Http\\Resources\\CEOResource' => __DIR__ . '/../..' . '/app/Http/Resources/CEOResource.php',
         'App\\Http\\Resources\\CreditCardResource' => __DIR__ . '/../..' . '/app/Http/Resources/CreditCardResource.php',
+        'App\\Http\\Resources\\FiltrosResource' => __DIR__ . '/../..' . '/app/Http/Resources/FiltrosResource.php',
+        'App\\Http\\Resources\\ForgotResource' => __DIR__ . '/../..' . '/app/Http/Resources/ForgotResource.php',
         'App\\Http\\Resources\\IdiomasResource' => __DIR__ . '/../..' . '/app/Http/Resources/IdiomasResource.php',
         'App\\Http\\Resources\\PreexistanceResource' => __DIR__ . '/../..' . '/app/Http/Resources/PreexistanceResource.php',
         'App\\Http\\Resources\\TarifasResource' => __DIR__ . '/../..' . '/app/Http/Resources/TarifasResource.php',
         'App\\Http\\Resources\\WSDynResource' => __DIR__ . '/../..' . '/app/Http/Resources/WSDynResource.php',
+        'App\\Mail\\EmergencyCallReceived' => __DIR__ . '/../..' . '/app/Mail/EmergencyCallReceived.php',
+        'App\\Mail\\NotifyMail' => __DIR__ . '/../..' . '/app/Mail/NotifyMail.php',
         'App\\Models\\Agreement' => __DIR__ . '/../..' . '/app/Models/Agreement.php',
         'App\\Models\\Beneficiary' => __DIR__ . '/../..' . '/app/Models/Beneficiary.php',
         'App\\Models\\CEO' => __DIR__ . '/../..' . '/app/Models/CEO.php',
         'App\\Models\\CreditCard' => __DIR__ . '/../..' . '/app/Models/CreditCard.php',
+        'App\\Models\\Filtro' => __DIR__ . '/../..' . '/app/Models/Filtro.php',
         'App\\Models\\Idioma' => __DIR__ . '/../..' . '/app/Models/Idioma.php',
         'App\\Models\\Parametro' => __DIR__ . '/../..' . '/app/Models/Parametro.php',
         'App\\Models\\Preexistance' => __DIR__ . '/../..' . '/app/Models/Preexistance.php',
@@ -4739,6 +4755,12 @@ class ComposerStaticInitec7cf3257a785cfd4ca6a469816970ed
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
+        'Rap2hpoutre\\LaravelLogViewer\\BaseController' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/controllers/LogViewerController.php',
+        'Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewer' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/Rap2hpoutre/LaravelLogViewer/LaravelLogViewer.php',
+        'Rap2hpoutre\\LaravelLogViewer\\LaravelLogViewerServiceProvider' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/Rap2hpoutre/LaravelLogViewer/LaravelLogViewerServiceProvider.php',
+        'Rap2hpoutre\\LaravelLogViewer\\Level' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/Rap2hpoutre/LaravelLogViewer/Level.php',
+        'Rap2hpoutre\\LaravelLogViewer\\LogViewerController' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/controllers/LogViewerController.php',
+        'Rap2hpoutre\\LaravelLogViewer\\Pattern' => __DIR__ . '/..' . '/rap2hpoutre/laravel-log-viewer/src/Rap2hpoutre/LaravelLogViewer/Pattern.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Sabberworm\\CSS\\CSSList\\AtRuleBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/AtRuleBlockList.php',
         'Sabberworm\\CSS\\CSSList\\CSSBlockList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/CSSList/CSSBlockList.php',
