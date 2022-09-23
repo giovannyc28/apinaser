@@ -579,9 +579,12 @@ class AgreementController extends Controller
             $html = preg_replace("/#strBeneficiaryAddress1City_.#/", '', $html);
             $html = preg_replace("/#strEdad_.#/", '', $html);
             
-            
-
-            $dataMail['attachFile'] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
+            $dataRecord = base64_decode(str_replace('data:audio/webm;codecs=opus;base64, ', '', $form9));
+            $myRecord = fopen(public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm', "w");
+            fwrite($myRecord, $dataRecord);
+            fclose($myRecord);
+            $dataMail['attachFile'][0] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm';
+            $dataMail['attachFile'][1] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
             PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile']);
             $dataMail['sendTo'] = $formAgreement['strAHEmail'];
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
@@ -591,9 +594,6 @@ class AgreementController extends Controller
             $dataMail['subject'] = $language == 'es' ? 'Afiliación Plan Funerario Internacional': 'International Funeral Plan Agreement'; 
             $sendMail = $this->sendMailAgreement($dataMail);
 
-            $myfile = fopen(public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm', "w");
-            fwrite($myfile, $form9);
-            fclose($myfile);
             
             $respuetasServicios['email'] =  $sendMail;
             //return $respuetasServicios;
