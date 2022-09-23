@@ -81,6 +81,9 @@ class AgreementController extends Controller
             $form7 = json_decode($form7,true);
             $form8 = json_encode($data['form8']);        
             $form8 = json_decode($form8,true);
+            $form9 = json_encode($data['form9']);        
+            $form9 = json_decode($form9,true);
+
             $language = json_encode($data['language']);        
             $language = json_decode($language,true);
 
@@ -587,11 +590,15 @@ class AgreementController extends Controller
             $dataMail['template'] = 'emails.messageAgreement_'.$language;
             $dataMail['subject'] = $language == 'es' ? 'Afiliación Plan Funerario Internacional': 'International Funeral Plan Agreement'; 
             $sendMail = $this->sendMailAgreement($dataMail);
+
+            $myfile = fopen(public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm', "w");
+            fwrite($myfile, $form9);
+            fclose($myfile);
             
             $respuetasServicios['email'] =  $sendMail;
-            return $respuetasServicios;
+            //return $respuetasServicios;
             //return $formAgreement;
-            //return $form7;
+            return $form9;
 
 
         } catch (\Throwable $th) {
