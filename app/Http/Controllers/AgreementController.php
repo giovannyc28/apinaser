@@ -585,7 +585,7 @@ class AgreementController extends Controller
             fclose($myRecord);
             $dataMail['attachFile'][0] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm';
             $dataMail['attachFile'][1] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
-            PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile']);
+            PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile'][1]);
             $dataMail['sendTo'] = $formAgreement['strAHEmail'];
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
             $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
