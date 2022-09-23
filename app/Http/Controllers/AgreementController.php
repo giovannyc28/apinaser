@@ -579,7 +579,7 @@ class AgreementController extends Controller
             $html = preg_replace("/#strBeneficiaryAddress1City_.#/", '', $html);
             $html = preg_replace("/#strEdad_.#/", '', $html);
             
-            $dataRecord = str_replace('data:audio/webm;codecs=opus;base64,', '', $form9);
+            $dataRecord = base64_decode(str_replace('data:audio/webm;codecs=opus;base64,', '', $form9));
             $myRecord = fopen(public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm', "w");
             fwrite($myRecord, $dataRecord);
             fclose($myRecord);
