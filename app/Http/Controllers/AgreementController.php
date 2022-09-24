@@ -614,7 +614,7 @@ class AgreementController extends Controller
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'], $dataMail['template']) ));
+            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'][1], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
         }

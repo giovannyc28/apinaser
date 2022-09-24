@@ -19,10 +19,10 @@ class NotifyMail extends Mailable
      *
      * @return void
      */
-    public function __construct($subject, $filename, $template)
+    public function __construct($subject, $filenames, $template)
     {
         //
-        $this->filename = $filename;
+        $this->filenames = $filenames;
         $this->subject = $subject;
         $this->template = $template;
     }
@@ -34,8 +34,13 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
-        return $this->view($this->template)
-            ->subject($this->subject)
-            ->attach($this->filename);
+        $buildMessage = $this->view($this->template)
+            ->subject($this->subject);
+        
+        foreach ($this->filenames as $fileName){
+            $buildMessage->attach($fileName);
+        }
+            
+        return $buildMessage;
     }
 }
