@@ -580,12 +580,13 @@ class AgreementController extends Controller
             $html = preg_replace("/#strEdad_.#/", '', $html);
             
             $dataRecord = base64_decode(str_replace('data:audio/webm;codecs=opus;base64,', '', $form9));
-            $myRecord = fopen(public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm', "w");
+            $myRecord = fopen(public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm', "w");
             fwrite($myRecord, $dataRecord);
             fclose($myRecord);
-            $dataMail['attachFile'][0] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.webm';
-            $dataMail['attachFile'][1] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
-            PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile'][1]);
+
+            $dataMail['attachFile'][0] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
+            $dataMail['attachFile'][1] = public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm';
+            PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile'][0]);
             $dataMail['sendTo'] = $formAgreement['strAHEmail'];
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
             $dataMail['mailAgent'] = $formAgreement['strAgentcontactEmail'];
@@ -596,9 +597,9 @@ class AgreementController extends Controller
 
             
             $respuetasServicios['email'] =  $sendMail;
-            //return $respuetasServicios;
+            return $respuetasServicios;
             //return $formAgreement;
-            return $sendMail;
+            //return $sendMail;
 
 
         } catch (\Throwable $th) {
