@@ -598,7 +598,7 @@ class AgreementController extends Controller
             $respuetasServicios['email'] =  $sendMail;
             //return $respuetasServicios;
             //return $formAgreement;
-            return $form9;
+            return $sendMail;
 
 
         } catch (\Throwable $th) {
@@ -614,7 +614,7 @@ class AgreementController extends Controller
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
                             ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
-            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'][1], $dataMail['template']) ));
+            return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
         }
