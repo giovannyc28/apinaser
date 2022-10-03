@@ -24,6 +24,7 @@ class AgreementController extends Controller
 {
 
     private $url;
+    private $emailCustomerService;
 
     /**
      * Display a listing of the resource.
@@ -167,6 +168,7 @@ class AgreementController extends Controller
 
             // consumo de WS registro de Contrato
             $this->url = $wsdlParam['url'];
+            $this->emailCustomerService = $wsdlParam['email'];
 
             $soapWrapper = new SoapWrapper;
             $soapWrapper->add('createAgreementDetail', function ($service) {
@@ -192,12 +194,15 @@ class AgreementController extends Controller
             //Preguntas Preexistencias
             $preguntas = [];
             $arrBeneficiarioPreExiste = [];
+            $preguntasUnicas = [];
 
             foreach ($form3 as $key => $value) {
-                
+                $intQ = (int) filter_var($key, FILTER_SANITIZE_NUMBER_INT);  
                 if (strpos($key,'[]') > 0){
-                    $intQ = (int) filter_var($key, FILTER_SANITIZE_NUMBER_INT);  
                     $preguntas[$intQ] = $value; 
+                }
+                if ($intQ== 0 || $intQ== 5){
+                    $preguntasUnicas[$intQ]=$value;
                 }
             }
             $respuetasServicios['Preguntas'] = $preguntas;
@@ -551,6 +556,12 @@ class AgreementController extends Controller
                 $html = str_replace("#sq_".$i."#", "X", $html);
                 $html = str_replace("#nq_".$i."#", "", $html);
             }
+            foreach ($preguntasUnicas as $i => $pg) {
+                $charRespuestaS = $pg == 'on'? 'X' : "";
+                $charRespuestaN = $pg != 'on'? 'X' : "";
+                $html = str_replace("#squ_".$i."#", $charRespuestaS, $html);
+                $html = str_replace("#nqu_".$i."#", $charRespuestaN, $html);
+            }
 
             $arrFranquicia = [ 
                     'Master Card' => '#mc#',
@@ -568,6 +579,8 @@ class AgreementController extends Controller
             
             $html = preg_replace("/#sq_.#/", '', $html);
             $html = preg_replace("/#nq_.#/", 'X', $html);
+            $html = preg_replace("/#squ_.#/", '', $html);
+            $html = preg_replace("/#nqu_.#/", 'X', $html);
             $html = preg_replace("/#quienes_.#/", '', $html);
             $html = preg_replace("/#strBeneficiaryNames_.#/", '', $html);
             $html = preg_replace("/#dtDateofbirth_.#/", '', $html);
@@ -579,13 +592,15 @@ class AgreementController extends Controller
             $html = preg_replace("/#strBeneficiaryAddress1City_.#/", '', $html);
             $html = preg_replace("/#strEdad_.#/", '', $html);
             
-            $dataRecord = base64_decode(str_replace('data:audio/webm;codecs=opus;base64,', '', $form9));
-            $myRecord = fopen(public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm', "w");
-            fwrite($myRecord, $dataRecord);
-            fclose($myRecord);
+            if ($form9 != ""){
+                $dataRecord = base64_decode(str_replace('data:audio/webm;codecs=opus;base64,', '', $form9));
+                $myRecord = fopen(public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm', "w");
+                fwrite($myRecord, $dataRecord);
+                fclose($myRecord);
+                $dataMail['attachFile'][1] = public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm';
+            }
 
             $dataMail['attachFile'][0] = public_path().'/form/formato_'.$formAgreement['strAgreement'].'.pdf';
-            $dataMail['attachFile'][1] = public_path().'/form/record_'.$formAgreement['strAgreement'].'.webm';
             PDF::loadHtml($html)->setPaper('letter')->addInfo(['Subject' => $formAgreement['strAgreement']] )->save($dataMail['attachFile'][0]);
             $dataMail['sendTo'] = $formAgreement['strAHEmail'];
             $dataMail['sendToName'] = $formAgreement['strAHFirstName'] . ' ' . $formAgreement['strAHLastName'];
@@ -593,10 +608,12 @@ class AgreementController extends Controller
             $dataMail['mailAgentName'] = auth()->user()->name . ' '. auth()->user()->lastname;
             $dataMail['template'] = 'emails.messageAgreement_'.$language;
             $dataMail['subject'] = $language == 'es' ? 'Afiliación Plan Funerario Internacional': 'International Funeral Plan Agreement'; 
+            $dataMail['subject'] = $formAgreement['strAgreement'] . " ". $dataMail['subject'];
             $sendMail = $this->sendMailAgreement($dataMail);
 
             
             $respuetasServicios['email'] =  $sendMail;
+            $respuetasServicios['cfgMail']=$dataMail;
             return $respuetasServicios;
             //return $formAgreement;
             //return $sendMail;
@@ -614,7 +631,9 @@ class AgreementController extends Controller
     {
         try {
             $send =  Mail::to($dataMail['sendTo'], $dataMail['sendToName'] )
-                            ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);                            
+                            ->bcc($dataMail['mailAgent'],$dataMail['mailAgentName']);
+            if ($this->emailCustomerService != "")
+                $send->bcc($this->emailCustomerService);                            
             return ($send->send(new NotifyMail($dataMail['subject'],$dataMail['attachFile'], $dataMail['template']) ));
         } catch (\Throwable $th) {
             return ($th);
