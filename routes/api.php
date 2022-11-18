@@ -9,6 +9,7 @@ use App\Http\Controllers\API\IdiomasController;
 use App\Http\Controllers\API\WSDynController;
 use App\Http\Controllers\API\ForgotController;
 use App\Http\Controllers\API\ProcesosController;
+use App\Http\Controllers\API\IbTwitterTrendController;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Agreement;
@@ -287,4 +288,20 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::middleware(['scope:admin'])->put('/proceso/{procesoId}', [ProcesosController::class, 'update']);
     //eliminar
     Route::middleware(['scope:admin'])->delete('/proceso/{procesoId}', [TarifasController::class, 'destroy']);
+});
+
+
+// reglas para roles de Twitter Trends
+Route::middleware(['auth:api', 'role'])->group(function () {
+
+    // Listar
+    Route::middleware(['scope:admin,agente'])->get('/twitterTrends', [IbTwitterTrendController::class, 'index']);
+    //Guardar
+    Route::middleware(['scope:admin'])->post('/twitterTrend', [IbTwitterTrendController::class, 'store']);
+    //ver Detalle
+    Route::middleware(['scope:admin,agente'])->post('/twitterTrend/{id}', [IbTwitterTrendController::class, 'show']);
+    //Actualizar
+    Route::middleware(['scope:admin'])->put('/twitterTrend/{id}', [IbTwitterTrendController::class, 'update']);
+    //eliminar
+    Route::middleware(['scope:admin'])->delete('/twitterTrends/{id}', [IbTwitterTrendController::class, 'destroy']);
 });
