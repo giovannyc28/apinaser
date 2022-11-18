@@ -8,6 +8,7 @@ use App\Http\Controllers\API\TarifasController;
 use App\Http\Controllers\API\IdiomasController;
 use App\Http\Controllers\API\WSDynController;
 use App\Http\Controllers\API\ForgotController;
+use App\Http\Controllers\API\ProcesosController;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Agreement;
