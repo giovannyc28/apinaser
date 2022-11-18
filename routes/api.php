@@ -273,3 +273,17 @@ Route::middleware(['scope:admin,agente'])->post('/lstcontrato', function (Reques
 });
 
 
+// reglas para roles de Procesos
+Route::middleware(['auth:api', 'role'])->group(function () {
+
+    // Listar
+    Route::middleware(['scope:admin,agente'])->get('/procesos', [ProcesosController::class, 'index']);
+    //Guardar
+    Route::middleware(['scope:admin'])->post('/proceso', [ProcesosController::class, 'store']);
+    //ver Detalle
+    Route::middleware(['scope:admin,agente'])->post('/proceso/{procesoId}', [ProcesosController::class, 'show']);
+    //Actualizar
+    Route::middleware(['scope:admin'])->put('/proceso/{procesoId}', [ProcesosController::class, 'update']);
+    //eliminar
+    Route::middleware(['scope:admin'])->delete('/proceso/{procesoId}', [TarifasController::class, 'destroy']);
+});
