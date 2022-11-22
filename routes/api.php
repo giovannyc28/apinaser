@@ -10,6 +10,7 @@ use App\Http\Controllers\API\WSDynController;
 use App\Http\Controllers\API\ForgotController;
 use App\Http\Controllers\API\ProcesosController;
 use App\Http\Controllers\API\IbTwitterTrendController;
+use App\Http\Controllers\API\IbVwAuthorTopController;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Agreement;
@@ -304,4 +305,22 @@ Route::middleware(['auth:api', 'role'])->group(function () {
     Route::middleware(['scope:admin'])->put('/twitterTrend/{id}', [IbTwitterTrendController::class, 'update']);
     //eliminar
     Route::middleware(['scope:admin'])->delete('/twitterTrends/{id}', [IbTwitterTrendController::class, 'destroy']);
+});
+
+
+// reglas para top de autores 
+Route::middleware(['auth:api', 'role'])->group(function () {
+
+    // Listar
+    Route::middleware(['scope:admin,agente'])->get('/authors', [IbVwAuthorTopController::class, 'index']);
+    //Guardar
+    Route::middleware(['scope:admin'])->post('/author', [IbVwAuthorTopController::class, 'store']);
+    //ver Detalle
+    Route::middleware(['scope:admin,agente'])->post('/author/{id}', [IbVwAuthorTopController::class, 'show']);
+    Route::middleware(['scope:admin,agente'])->post('/author/{idPs}/{score}', [IbVwAuthorTopController::class, 'showpart']);
+    Route::middleware(['scope:admin,agente'])->post('/authors/{idPs}', [IbVwAuthorTopController::class, 'showByPrcoess']);
+    //Actualizar
+    Route::middleware(['scope:admin'])->put('/author/{id}', [IbVwAuthorTopController::class, 'update']);
+    //eliminar
+    Route::middleware(['scope:admin'])->delete('/author/{id}', [IbVwAuthorTopController::class, 'destroy']);
 });
