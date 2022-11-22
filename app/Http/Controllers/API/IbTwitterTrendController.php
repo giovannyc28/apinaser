@@ -22,7 +22,10 @@ class IbTwitterTrendController extends Controller
     public function index()
     {
         $maxProceso = Procesos::latest()->first();
-        $trends = IbTwitterTrend::where('id_ps', $maxProceso->id)->get();
+        $trends = IbTwitterTrend::where('id_ps', $maxProceso->id) ->orderBy('score','DESC')
+        ->skip(0)
+        ->take(20)
+        ->get();
 
         return response (
             IbTwitterTrendResource::collection($trends)
