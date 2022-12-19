@@ -21,7 +21,7 @@ class IbTwitterTrendController extends Controller
      */
     public function index()
     {
-        $maxProceso = Procesos::where('clasificacion', 'G')->first();
+        $maxProceso = Procesos::where('clasificacion', 'G')->latest()->first();
         $trends = IbTwitterTrend::where('id_ps', $maxProceso->id) ->orderBy('score','DESC')
         ->skip(0)
         ->take(20)

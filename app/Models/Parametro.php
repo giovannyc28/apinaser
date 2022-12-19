@@ -13,6 +13,7 @@ class Parametro extends Model
         'valor',
         'estado',
         'agrupador',
-        'bunit'
+        'bunit',
+        'email'
     ];
 }
