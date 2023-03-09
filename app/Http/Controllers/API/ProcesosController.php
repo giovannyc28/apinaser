@@ -18,7 +18,7 @@ class ProcesosController extends Controller
      */
     public function index()
     {
-        $procesos = Procesos::where('clasificacion', '=', 'G')->where('terminado', '=', '1')::get();
+        $procesos = Procesos::where('clasificacion', '=', 'G')::get();
 
         return response (
             ProcesosResource::collection($procesos)
