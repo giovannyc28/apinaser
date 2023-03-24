@@ -26,9 +26,10 @@ class IbTwitterTrendController extends Controller
         ->skip(0)
         ->take(20)
         ->get();
-
+        $data['trends']=$trends;
+        $data['ps']=$maxProceso;
         return response (
-            IbTwitterTrendResource::collection($trends)
+            IbTwitterTrendResource::collection($data)
             , 200); 
     }
 
