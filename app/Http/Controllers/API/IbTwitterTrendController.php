@@ -21,15 +21,12 @@ class IbTwitterTrendController extends Controller
      */
     public function index()
     {
-        $maxProceso = Procesos::where('clasificacion', 'G')->where('terminado', '=', '1')->latest()->first();
+        $maxProceso = Procesos::where('clasificacion', 'G')->where('terminado', '=', '1')->orderBy('id','DESC')->first();
         $trends = IbTwitterTrend::where('id_ps', $maxProceso->id) ->orderBy('score','DESC')
         ->skip(0)
         ->take(20)
         ->get();
-        $fecha = $maxProceso['created_at'];
-        //$carbon_date = Carbon::parse($date);
-        //$carbon_date->addHours(-5);
-        $maxProceso['created_at'] = $fecha;
+        
         $data['trends']=$trends;
         $data['ps']=$maxProceso;
         return response (
