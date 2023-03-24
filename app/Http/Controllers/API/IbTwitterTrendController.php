@@ -27,9 +27,9 @@ class IbTwitterTrendController extends Controller
         ->take(20)
         ->get();
         $fecha = $maxProceso['created_at'];
-        $carbon_date = Carbon::parse($date);
-        $carbon_date->addHours(-5);
-        $maxProceso['created_at'] = $carbon_date;
+        //$carbon_date = Carbon::parse($date);
+        //$carbon_date->addHours(-5);
+        $maxProceso['created_at'] = $fecha;
         $data['trends']=$trends;
         $data['ps']=$maxProceso;
         return response (
